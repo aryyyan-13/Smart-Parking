@@ -146,4 +146,94 @@ export class ListingsService {
       return updated;
     });
   }
+
+  static async getDashboardStats(user: User) {
+    const memberships = await prisma.organizationMember.findMany({
+      where: { userId: user.id },
+      select: { organizationId: true },
+    });
+    
+    if (memberships.length === 0) {
+      return {
+        stats: {
+          totalRevenue: 0,
+          activeBookings: 0,
+          occupancyRate: '0%',
+          listedSpaces: 0,
+        },
+        recentBookings: [],
+        weeklyData: Array(7).fill(0).map((_, i) => ({ day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][(new Date().getDay() - 6 + i + 7) % 7], amount: 0 }))
+      };
+    }
+
+    const orgIds = memberships.map((m) => m.organizationId);
+
+    // Get basic stats
+    const listedSpaces = await prisma.listing.count({
+      where: { organizationId: { in: orgIds }, deletedAt: null }
+    });
+
+    // Get bookings
+    const bookings = await prisma.booking.findMany({
+      where: { organizationId: { in: orgIds } },
+      include: { driver: true, listing: true },
+      orderBy: { createdAt: 'desc' }
+    });
+
+    let totalRevenue = 0;
+    let activeBookings = 0;
+    const recent = [];
+
+    for (const b of bookings) {
+      if (b.status === 'COMPLETED' || b.status === 'CONFIRMED') {
+        totalRevenue += b.amountPaise;
+      }
+      if (b.status === 'CONFIRMED' || b.status === 'PENDING') {
+        activeBookings++;
+      }
+      
+      // Limit recent to 10
+      if (recent.length < 10) {
+        recent.push({
+          id: b.id,
+          driver: b.driver?.name || 'Unknown',
+          slot: b.listing.slotLabel || b.listing.title,
+          time: b.startsAt,
+          status: b.status,
+          amountPaise: b.amountPaise,
+        });
+      }
+    }
+
+    // Mock weekly data for now since we don't have historical aggregation set up
+    const weeklyData = Array(7).fill(0).map((_, i) => {
+      const d = new Date();
+      d.setDate(d.getDate() - (6 - i));
+      const dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][d.getDay()];
+      
+      // Calculate revenue just for this day from bookings
+      const dayStart = new Date(d.setHours(0,0,0,0));
+      const dayEnd = new Date(d.setHours(23,59,59,999));
+      
+      const dayRevenue = bookings
+        .filter(b => b.createdAt >= dayStart && b.createdAt <= dayEnd && (b.status === 'COMPLETED' || b.status === 'CONFIRMED'))
+        .reduce((sum, b) => sum + b.amountPaise, 0);
+
+      return {
+        day: dayName,
+        amount: dayRevenue, // in paise
+      };
+    });
+
+    return {
+      stats: {
+        totalRevenue,
+        activeBookings,
+        occupancyRate: listedSpaces > 0 && activeBookings > 0 ? Math.round((activeBookings / (listedSpaces * 3)) * 100) + '%' : '0%', // Mock calc
+        listedSpaces,
+      },
+      recentBookings: recent,
+      weeklyData,
+    };
+  }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import GlassCard from "@web/components/ui/GlassCard";
 import StatusBadge from "@web/components/ui/StatusBadge";
-import { useCurrencyStore, formatPrice } from "@web/lib/currency-store";
+import { createClient } from "@web/utils/supabase/client";
 
 const sidebarItems = [
   { label: "Dashboard", href: "/owner/dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -19,18 +19,10 @@ const sidebarItems = [
   { label: "Settings", href: "/owner/settings", icon: <Settings className="w-4 h-4" /> },
 ];
 
-const weeklyData = [
-  { day: "Mon", amount: 1200 },
-  { day: "Tue", amount: 1800 },
-  { day: "Wed", amount: 1650 },
-  { day: "Thu", amount: 2100 },
-  { day: "Fri", amount: 2800 },
-  { day: "Sat", amount: 3200 },
-  { day: "Sun", amount: 2400 },
-];
 
-function MiniChart() {
-  const max = Math.max(...weeklyData.map((d) => d.amount));
+
+function MiniChart({ weeklyData }: { weeklyData: { day: string; amount: number }[] }) {
+  const max = Math.max(...weeklyData.map((d) => d.amount), 100);
   const height = 120;
 
   const points = weeklyData.map((d, i) => {
@@ -94,22 +86,42 @@ function MiniChart() {
 export default function OwnerDashboardPage() {
   const [activeNav, setActiveNav] = useState("Dashboard");
   const { active: currency } = useCurrencyStore();
+  const supabase = createClient();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<{
+    stats: { totalRevenue: number; activeBookings: number; occupancyRate: string; listedSpaces: number };
+    recentBookings: Array<Record<string, unknown> & { id: string, driver: string, slot: string, time: string, status: string, amountPaise: number }>;
+    weeklyData: { day: string; amount: number }[];
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchStats() {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/listings/stats`, {
+          headers: { 'Authorization': `Bearer ${session.access_token}` }
+        });
+        if (res.ok) {
+          setData(await res.json());
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchStats();
+  }, [supabase.auth]);
 
   const stats = [
-    { label: "Total Revenue", value: formatPrice(124500, currency), icon: <DollarSign className="w-4 h-4" />, change: "+12%" },
-    { label: "Active Bookings", value: "34", icon: <CalendarCheck className="w-4 h-4" />, change: "+8%" },
-    { label: "Occupancy Rate", value: "78%", icon: <BarChart3 className="w-4 h-4" />, change: "+5%" },
-    { label: "Listed Spaces", value: "12", icon: <ParkingCircle className="w-4 h-4" />, change: "0" },
+    { label: "Total Revenue", value: data ? formatPrice(data.stats.totalRevenue, currency) : "...", icon: <DollarSign className="w-4 h-4" />, change: "0" },
+    { label: "Active Bookings", value: data?.stats.activeBookings.toString() || "...", icon: <CalendarCheck className="w-4 h-4" />, change: "0" },
+    { label: "Occupancy Rate", value: data?.stats.occupancyRate || "...", icon: <BarChart3 className="w-4 h-4" />, change: "0" },
+    { label: "Listed Spaces", value: data?.stats.listedSpaces.toString() || "...", icon: <ParkingCircle className="w-4 h-4" />, change: "0" },
   ];
 
-  const recentBookings = [
-    { id: 1, driver: "Aarav Sharma", slot: "P101", time: "Aug 4, 09:00", status: "confirmed" as const, amount: formatPrice(300, currency) },
-    { id: 2, driver: "Priya Patel", slot: "P102", time: "Aug 4, 10:30", status: "pending" as const, amount: formatPrice(160, currency) },
-    { id: 3, driver: "Rohan Verma", slot: "P103", time: "Aug 3, 14:00", status: "cancelled" as const, amount: formatPrice(120, currency) },
-    { id: 4, driver: "Ananya Iyer", slot: "P104", time: "Aug 3, 08:00", status: "pending" as const, amount: formatPrice(220, currency) },
-    { id: 5, driver: "Karan Singh", slot: "P105", time: "Aug 2, 16:00", status: "confirmed" as const, amount: formatPrice(180, currency) },
-    { id: 6, driver: "Sneha Reddi", slot: "P106", time: "Aug 2, 11:00", status: "confirmed" as const, amount: formatPrice(150, currency) },
-  ];
+  const recentBookings = data?.recentBookings || [];
 
   return (
     <div className="min-h-screen bg-bg-void flex">
@@ -223,7 +235,7 @@ export default function OwnerDashboardPage() {
                 7-Day Interval
               </span>
             </div>
-            <MiniChart />
+            <MiniChart weeklyData={data?.weeklyData || []} />
           </GlassCard>
 
           {/* Recent Activity Table */}
@@ -233,10 +245,15 @@ export default function OwnerDashboardPage() {
                 <h2 className="font-heading text-base font-bold text-white">Live Booking Activity</h2>
                 <p className="text-xs text-muted font-mono">Real-time driver arrivals and departures</p>
               </div>
-              <span className="text-xs text-muted font-mono">6 Total Today</span>
+              <span className="text-xs text-muted font-mono">{recentBookings.length} Total</span>
             </div>
 
-            <div className="overflow-x-auto">
+            {loading ? (
+              <div className="py-12 text-center text-muted font-mono text-sm animate-pulse">Loading bookings...</div>
+            ) : recentBookings.length === 0 ? (
+              <div className="py-12 text-center text-muted font-mono text-sm">No recent bookings found.</div>
+            ) : (
+              <div className="overflow-x-auto">
               <table className="w-full text-xs font-mono" aria-label="Recent bookings">
                 <thead>
                   <tr className="border-b border-white/10 text-muted">
@@ -252,16 +269,17 @@ export default function OwnerDashboardPage() {
                     <tr key={b.id} className="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
                       <td className="py-3 px-3 font-medium text-white font-sans">{b.driver}</td>
                       <td className="py-3 px-3 font-bold text-accent-cyan">{b.slot}</td>
-                      <td className="py-3 px-3 text-muted hidden sm:table-cell">{b.time}</td>
+                      <td className="py-3 px-3 text-muted hidden sm:table-cell">{new Date(b.time).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
                       <td className="py-3 px-3">
-                        <StatusBadge status={b.status} />
+                        <StatusBadge status={b.status === "CONFIRMED" || b.status === "COMPLETED" ? "active" : b.status === "PENDING" ? "warning" : "inactive"} />
                       </td>
-                      <td className="py-3 px-3 text-right font-bold text-white">{b.amount}</td>
+                      <td className="py-3 px-3 text-right font-bold text-white">{formatPrice(b.amountPaise, currency)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+            )}
           </GlassCard>
         </div>
       </main>

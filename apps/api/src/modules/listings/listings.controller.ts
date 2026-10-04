@@ -60,5 +60,20 @@ export class ListingsController {
       logger.error({ error }, 'Failed to update listing');
       res.status(500).json({ error: 'Internal server error' });
     }
+    }
+  }
+
+  static async getStats(req: Request, res: Response): Promise<void> {
+    try {
+      if (!req.user) {
+        res.status(401).json({ error: 'Unauthorized' });
+        return;
+      }
+      const stats = await ListingsService.getDashboardStats(req.user);
+      res.json(stats);
+    } catch (error) {
+      logger.error({ error }, 'Failed to fetch dashboard stats');
+      res.status(500).json({ error: 'Internal server error' });
+    }
   }
 }
