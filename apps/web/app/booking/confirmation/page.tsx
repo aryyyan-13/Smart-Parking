@@ -148,7 +148,9 @@ function FastagEntryCard({ session }: { session: ParkingSession }) {
 }
 
 /* ── Confirmation Page ───────────────────────────────────────── */
-export default function BookingConfirmationPage() {
+import { Suspense } from "react";
+
+function BookingConfirmationContent() {
   const searchParams = useSearchParams();
   const sid = searchParams.get("sid");
   const sessions = useParkingSessionStore((s) => s.sessions);
@@ -315,5 +317,13 @@ export default function BookingConfirmationPage() {
         </motion.div>
       </main>
     </div>
+  );
+}
+
+export default function BookingConfirmationPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-bg-void flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-accent-cyan border-t-transparent animate-spin"></div></div>}>
+      <BookingConfirmationContent />
+    </Suspense>
   );
 }
