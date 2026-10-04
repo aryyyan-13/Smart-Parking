@@ -1,0 +1,393 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// Prisma Schema — Smart Parking
+//
+// Rules enforced here:
+//  - Every table: id (UUID), created_at, updated_at
+//  - Soft deletes (deleted_at) on User, Listing, Booking, Organization
+//  - Multi-tenant: every tenant-owned table has organization_id
+//  - Money stored as Int (paise/minor units) — never Float
+//  - All timestamps stored in UTC (DateTime @db.Timestamptz)
+//  - Foreign keys indexed (via @@index)
+//  - Columns used in filters/sorts indexed
+//  - Constraints (NOT NULL via ? absence, UNIQUE, enums) where possible
+// ─────────────────────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Enums ──────────────────────────────────────────────────────────────────
+
+enum UserRole {
+  VIEWER
+  MEMBER
+  ADMIN
+  OWNER
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
+  PENDING_VERIFICATION
+}
+
+enum VehicleType {
+  TWO_WHEELER
+  FOUR_WHEELER
+}
+
+enum ListingStatus {
+  DRAFT
+  PUBLISHED
+  UNPUBLISHED
+  DELETED
+}
+
+enum ApprovalMode {
+  AUTO
+  MANUAL
+}
+
+enum PricingUnit {
+  HOUR
+  DAY
+  MONTH
+}
+
+enum BookingStatus {
+  REQUESTED
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+  DECLINED
+  EXPIRED
+}
+
+enum NotificationType {
+  BOOKING_CONFIRMED
+  BOOKING_DECLINED
+  BOOKING_CANCELLED
+  BOOKING_EXPIRED
+  BOOKING_PENDING
+}
+
+// ─── Organization ────────────────────────────────────────────────────────────
+
+model Organization {
+  id        String  @id @default(uuid()) @db.Uuid
+  name      String
+  slug      String  @unique
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz
+
+  // Relations
+  members            OrganizationMember[]
+  vehicles           Vehicle[]
+  listings           Listing[]
+  bookings           Booking[]
+  availabilityRules  AvailabilityRule[]
+  availabilityBlocks AvailabilityBlock[]
+  priceRules         PriceRule[]
+  photos             ListingPhoto[]
+  auditEvents        AuditEvent[]
+  notifications      Notification[]
+
+  @@index([deletedAt])
+  @@map("organizations")
+}
+
+// ─── User ────────────────────────────────────────────────────────────────────
+
+model User {
+  id        String     @id @default(uuid()) @db.Uuid
+  authId    String     @unique @map("auth_id") // Supabase Auth UUID
+  email     String     @unique
+  name      String?
+  phone     String?    @unique
+  status    UserStatus @default(PENDING_VERIFICATION)
+
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz
+
+  // Relations
+  memberships   OrganizationMember[]
+  vehicles      Vehicle[]            @relation("UserVehicles")
+  bookings      Booking[]            @relation("DriverBookings")
+  notifications Notification[]
+  auditEvents   AuditEvent[]         @relation("ActorEvents")
+
+  @@index([email])
+  @@index([authId])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+// ─── OrganizationMember ──────────────────────────────────────────────────────
+
+model OrganizationMember {
+  id             String       @id @default(uuid()) @db.Uuid
+  organizationId String       @map("organization_id") @db.Uuid
+  userId         String       @map("user_id") @db.Uuid
+  role           UserRole     @default(VIEWER)
+
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime     @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@index([organizationId])
+  @@index([userId])
+  @@index([role])
+  @@map("organization_members")
+}
+
+// ─── Vehicle ─────────────────────────────────────────────────────────────────
+
+model Vehicle {
+  id             String      @id @default(uuid()) @db.Uuid
+  organizationId String      @map("organization_id") @db.Uuid
+  userId         String      @map("user_id") @db.Uuid
+  type           VehicleType
+  licensePlate   String      @map("license_plate")
+  label          String?
+
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime    @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation("UserVehicles", fields: [userId], references: [id])
+  bookings       Booking[]
+
+  @@unique([userId, licensePlate])
+  @@index([organizationId])
+  @@index([userId])
+  @@map("vehicles")
+}
+
+// ─── Listing ─────────────────────────────────────────────────────────────────
+
+model Listing {
+  id             String        @id @default(uuid()) @db.Uuid
+  organizationId String        @map("organization_id") @db.Uuid
+  title          String
+  description    String?
+  address        String
+  latitude       Decimal       @db.Decimal(9, 6)
+  longitude      Decimal       @db.Decimal(9, 6)
+  ianaTimezone   String        @map("iana_timezone") @default("Asia/Kolkata")
+  status         ListingStatus @default(DRAFT)
+  approvalMode   ApprovalMode  @default(AUTO)
+  vehicleType    VehicleType   @map("vehicle_type")
+  slotLabel      String?       @map("slot_label") // ponytail: merged ParkingSlot
+
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt      DateTime?     @map("deleted_at") @db.Timestamptz
+
+  // Relations
+  organization       Organization         @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  bookings           Booking[]
+  photos             ListingPhoto[]
+  priceRules         PriceRule[]
+  availabilityRules  AvailabilityRule[]
+  availabilityBlocks AvailabilityBlock[]
+  auditEvents        AuditEvent[]         @relation("ListingEvents")
+
+  @@index([organizationId])
+  @@index([status])
+  @@index([vehicleType])
+  @@index([deletedAt])
+  @@map("listings")
+}
+
+// ─── ListingPhoto ────────────────────────────────────────────────────────────
+
+model ListingPhoto {
+  id             String  @id @default(uuid()) @db.Uuid
+  organizationId String  @map("organization_id") @db.Uuid
+  listingId      String  @map("listing_id") @db.Uuid
+  storageKey     String  @map("storage_key")
+  ordering       Int     @default(0)
+  altText        String? @map("alt_text")
+
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  listing        Listing      @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([listingId])
+  @@map("listing_photos")
+}
+
+// ─── PriceRule ───────────────────────────────────────────────────────────────
+
+model PriceRule {
+  id             String      @id @default(uuid()) @db.Uuid
+  organizationId String      @map("organization_id") @db.Uuid
+  listingId      String      @map("listing_id") @db.Uuid
+  unit           PricingUnit
+  amount         Int
+  currency       String      @default("INR") @db.Char(3)
+  validFrom      DateTime?   @map("valid_from") @db.Timestamptz
+  validTo        DateTime?   @map("valid_to") @db.Timestamptz
+
+  createdAt      DateTime    @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime    @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  listing        Listing      @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([listingId])
+  @@map("price_rules")
+}
+
+// ─── AvailabilityRule ────────────────────────────────────────────────────────
+
+model AvailabilityRule {
+  id             String @id @default(uuid()) @db.Uuid
+  organizationId String @map("organization_id") @db.Uuid
+  listingId      String @map("listing_id") @db.Uuid
+  weekday        Int
+  startTime      String @map("start_time")
+  endTime        String @map("end_time")
+
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  listing        Listing      @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([listingId])
+  @@map("availability_rules")
+}
+
+// ─── AvailabilityBlock ───────────────────────────────────────────────────────
+
+model AvailabilityBlock {
+  id             String   @id @default(uuid()) @db.Uuid
+  organizationId String   @map("organization_id") @db.Uuid
+  listingId      String   @map("listing_id") @db.Uuid
+  startsAt       DateTime @map("starts_at") @db.Timestamptz
+  endsAt         DateTime @map("ends_at") @db.Timestamptz
+  reason         String?
+
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  listing        Listing      @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([listingId])
+  @@index([startsAt, endsAt])
+  @@map("availability_blocks")
+}
+
+// ─── Booking ─────────────────────────────────────────────────────────────────
+
+model Booking {
+  id                 String        @id @default(uuid()) @db.Uuid
+  organizationId     String        @map("organization_id") @db.Uuid
+  listingId          String        @map("listing_id") @db.Uuid // ponytail: points directly to Listing
+  driverId           String        @map("driver_id") @db.Uuid
+  vehicleId          String        @map("vehicle_id") @db.Uuid
+  status             BookingStatus @default(REQUESTED)
+
+  startsAt           DateTime      @map("starts_at") @db.Timestamptz
+  endsAt             DateTime      @map("ends_at") @db.Timestamptz
+  amountPaise        Int           @map("amount_paise")
+  currency           String        @default("INR") @db.Char(3)
+  expiresAt          DateTime?     @map("expires_at") @db.Timestamptz
+  cancellationReason String?       @map("cancellation_reason")
+
+  createdAt          DateTime      @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt          DateTime      @updatedAt @map("updated_at") @db.Timestamptz
+  deletedAt          DateTime?     @map("deleted_at") @db.Timestamptz
+
+  // Relations
+  organization       Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  listing            Listing       @relation(fields: [listingId], references: [id])
+  driver             User          @relation("DriverBookings", fields: [driverId], references: [id])
+  vehicle            Vehicle       @relation(fields: [vehicleId], references: [id])
+
+  @@index([organizationId])
+  @@index([listingId])
+  @@index([driverId])
+  @@index([vehicleId])
+  @@index([status])
+  @@index([startsAt, endsAt])
+  @@index([expiresAt])
+  @@index([deletedAt])
+  @@map("bookings")
+}
+
+// ─── Notification ────────────────────────────────────────────────────────────
+
+model Notification {
+  id             String           @id @default(uuid()) @db.Uuid
+  organizationId String           @map("organization_id") @db.Uuid
+  userId         String           @map("user_id") @db.Uuid
+  type           NotificationType
+  payload        Json
+  readAt         DateTime?        @map("read_at") @db.Timestamptz
+
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt      DateTime         @updatedAt @map("updated_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([userId])
+  @@index([userId, readAt])
+  @@map("notifications")
+}
+
+// ─── AuditEvent ──────────────────────────────────────────────────────────────
+
+model AuditEvent {
+  id             String        @id @default(uuid()) @db.Uuid
+  organizationId String        @map("organization_id") @db.Uuid
+  actorId        String        @map("actor_id") @db.Uuid
+  entityType     String        @map("entity_type")
+  entityId       String        @map("entity_id") @db.Uuid
+  action         String
+  metadata       Json?
+
+  createdAt      DateTime      @default(now()) @map("created_at") @db.Timestamptz
+
+  // Relations
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  actor          User          @relation("ActorEvents", fields: [actorId], references: [id])
+  listing        Listing?      @relation("ListingEvents", fields: [entityId], references: [id], map: "audit_listing_fk")
+
+  @@index([organizationId])
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_events")
+}

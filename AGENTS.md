@@ -32,3 +32,36 @@
 ## Completion format
 
 For each task, provide: summary of implementation, changed files, test/build results, known limitations, and the next recommended task. Update `TASKS.md` only when its matching acceptance criterion is met.
+
+---
+
+## Stack
+
+| Layer | Technology | Hosting |
+|---|---|---|
+| Frontend | Next.js 16 (App Router) + TypeScript | Vercel (ap-south-1 edge) |
+| Backend | Express 5 + TypeScript | Render (India region) |
+| Database | Supabase PostgreSQL 15 + PostGIS | Supabase (ap-south-1) |
+| Auth | Supabase Auth (JWT, Google OAuth, email/password) | Supabase |
+| Storage | Supabase Storage (private buckets, signed URLs) | Supabase |
+| ORM | Prisma (schema-first, migrations) | — |
+| Maps | Google Maps Platform (Maps JS + Geocoding + Places) | — |
+| Background jobs | pg-boss (Postgres-backed queue, in API process) | — |
+| Email | Resend (React Email templates) | — |
+| Error tracking | Sentry (browser + Node SDK) | — |
+| Shared types | `packages/shared` (Zod schemas + TS types) | — |
+
+## Architecture
+
+Shape: **Modular monolith** — two deployable units (`apps/web`, `apps/api`) sharing types via `packages/shared`. Single Supabase project for DB + Auth + Storage. No microservices.
+
+Full architecture detail: [`docs/architecture.md`](docs/architecture.md)  
+Architecture Decision Records: [`docs/decisions/`](docs/decisions/)
+
+Key constraints:
+- Business logic lives in `apps/api/src/services/` and `apps/api/src/modules/*/service.ts` — **never in route files or UI components**
+- Every tenant-owned table has Row Level Security policies in Supabase
+- Money is stored as integer minor units (paise) — never floats
+- All timestamps stored in UTC; display uses listing-local IANA timezone
+- Prisma `$queryRaw` bypasses RLS — every raw query must include explicit `owner_id`/`user_id` filter
+- Two Google Maps API keys: one browser key (restricted to Maps JS + Places), one server key (restricted to Geocoding only)

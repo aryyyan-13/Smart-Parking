@@ -10,6 +10,7 @@ import {
 import NeonButton from "@web/components/ui/NeonButton";
 import ThemeToggle from "@web/components/ui/ThemeToggle";
 import { useCurrencyStore, CURRENCIES, type CurrencyCode } from "@web/lib/currency-store";
+import { useParkingSessionStore } from "@web/lib/parking-session-store";
 
 interface NavItem {
   label: string;
@@ -18,9 +19,9 @@ interface NavItem {
   badge?: string;
 }
 
-const navItems: NavItem[] = [
+const BASE_NAV_ITEMS: NavItem[] = [
   { label: "Find Parking", href: "/search", icon: <Search className="w-3.5 h-3.5" /> },
-  { label: "Live Meter", href: "/meter", icon: <Timer className="w-3.5 h-3.5" />, badge: "LIVE" },
+  { label: "Live Meter", href: "/meter", icon: <Timer className="w-3.5 h-3.5" /> },
   { label: "HUD Deck", href: "/deck", icon: <Cpu className="w-3.5 h-3.5" /> },
   { label: "Host Studio", href: "/owner/dashboard", icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
   { label: "Admin Vision", href: "/admin", icon: <Shield className="w-3.5 h-3.5" /> },
@@ -32,6 +33,19 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const { active, setActive } = useCurrencyStore();
+  const activeSession = useParkingSessionStore((s) => s.getActiveSession());
+
+  // Inject active session badge dynamically onto the Live Meter link
+  const navItems: NavItem[] = BASE_NAV_ITEMS.map((item) => {
+    if (item.href === "/meter" && activeSession) {
+      return { ...item, badge: "LIVE" };
+    }
+    if (item.href === "/admin") {
+      const activeSessions = useParkingSessionStore.getState().getActiveSessions();
+      return activeSessions.length > 0 ? { ...item, badge: String(activeSessions.length) } : item;
+    }
+    return item;
+  });
 
   useEffect(() => {
     const handleScroll = () => {
