@@ -15,11 +15,11 @@ function createPrismaClient(): PrismaClient {
     ],
   });
 
-  client.$on('warn', (e) => {
+  client.$on('warn', (e: any) => {
     logger.warn({ source: 'prisma', message: e.message }, 'Prisma warning');
   });
 
-  client.$on('error', (e) => {
+  client.$on('error', (e: any) => {
     logger.error({ source: 'prisma', message: e.message }, 'Prisma error');
   });
 
