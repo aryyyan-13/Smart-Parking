@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
@@ -43,6 +43,40 @@ export default function SearchPage() {
   const [densityFilter, setDensityFilter] = useState<DensityFilter>("ALL");
   const [sortMode, setSortMode] = useState<SortMode>("DEFAULT");
   const [showHeatmap, setShowHeatmap] = useState(false);
+  const [realListings, setRealListings] = useState<Array<Record<string, unknown> & { id: string, name: string, address: string, lat: number, lng: number, distance: number, pricePerHour: string, vehicleType: "TWO_WHEELER" | "FOUR_WHEELER" }>>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch from API whenever city/filters change
+  useEffect(() => {
+    async function fetchSearch() {
+      setLoading(true);
+      try {
+        const city = INDIAN_TIER_1_CITIES.find(c => c.id === selectedCityId);
+        let url = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/search`;
+        const params = new URLSearchParams();
+        if (city) {
+          params.append('lat', city.lat.toString());
+          params.append('lng', city.lng.toString());
+          params.append('radiusKm', '20'); // Wide search for a city
+        }
+        if (vehicleFilter !== 'ALL') {
+          params.append('vehicleType', vehicleFilter);
+        }
+        if (params.toString()) {
+          url += '?' + params.toString();
+        }
+        const res = await fetch(url);
+        if (res.ok) {
+          setRealListings(await res.json());
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSearch();
+  }, [selectedCityId, vehicleFilter]);
 
   const { active: activeCurrency, setActive } = useCurrencyStore();
 
@@ -58,8 +92,30 @@ export default function SearchPage() {
     });
 
   const filtered = useMemo(() => {
-    let list = INDIA_PARKING_LOCATIONS.filter((p) => {
-      if (selectedCityId !== "ALL" && p.cityId !== selectedCityId) return false;
+    // Merge real listings and mock listings for demo purposes, or just use real if present
+    const apiMapped = realListings.map(r => ({
+      id: r.id,
+      cityId: selectedCityId,
+      cityName: selectedCityId === 'ALL' ? 'India' : (INDIAN_TIER_1_CITIES.find(c => c.id === selectedCityId)?.name || 'India'),
+      name: r.name,
+      address: r.address,
+      lat: r.lat,
+      lng: r.lng,
+      distance: r.distance > 0 ? (r.distance / 1000).toFixed(1) + ' km' : 'Near',
+      pricePerHour: r.pricePerHour ? parseInt(r.pricePerHour) / 100 : 50,
+      currency: "₹",
+      availableSpots: 10, // Mock for now, DB doesn't track live spots without bookings
+      totalSpots: 10,
+      vehicleTypes: [r.vehicleType],
+      rating: 5.0,
+      isEV: false, isAccessible: false, isCovered: false, hasCCTV: false, cctvScore: 0, densityZone: "medium" as const
+    }));
+
+    // If API returned items, use them, otherwise fallback to mock so UI looks nice
+    const baseList = apiMapped.length > 0 ? apiMapped : INDIA_PARKING_LOCATIONS;
+
+    let list = baseList.filter((p) => {
+      if (apiMapped.length === 0 && selectedCityId !== "ALL" && p.cityId !== selectedCityId) return false;
       if (vehicleFilter !== "ALL" && !p.vehicleTypes.includes(vehicleFilter)) return false;
       if (
         searchQuery &&
@@ -82,7 +138,7 @@ export default function SearchPage() {
     if (sortMode === "SPOTS") list = [...list].sort((a, b) => b.availableSpots - a.availableSpots);
 
     return list;
-  }, [selectedCityId, vehicleFilter, searchQuery, featureFilters, densityFilter, sortMode]);
+  }, [realListings, selectedCityId, vehicleFilter, searchQuery, featureFilters, densityFilter, sortMode]);
 
   const sortCycles: SortMode[] = ["DEFAULT", "PRICE_ASC", "PRICE_DESC", "RATING", "SPOTS"];
   const sortLabels: Record<SortMode, string> = {
@@ -283,10 +339,14 @@ export default function SearchPage() {
           {/* Results Summary Bar */}
           <div className="px-5 py-2.5 flex items-center justify-between border-b border-white/10 text-xs">
             <span className="text-muted">
-              <span className="font-mono text-accent-cyan font-bold">{filtered.length}</span> locations in{" "}
-              <span className="text-white font-medium">
-                {selectedCityId === "ALL" ? "India" : INDIAN_TIER_1_CITIES.find((c) => c.id === selectedCityId)?.name}
-              </span>
+              {loading ? <span className="animate-pulse">Searching...</span> : (
+                <>
+                  <span className="font-mono text-accent-cyan font-bold">{filtered.length}</span> locations in{" "}
+                  <span className="text-white font-medium">
+                    {selectedCityId === "ALL" ? "India" : INDIAN_TIER_1_CITIES.find((c) => c.id === selectedCityId)?.name}
+                  </span>
+                </>
+              )}
             </span>
             <button
               onClick={cycleSortMode}

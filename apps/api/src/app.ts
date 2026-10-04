@@ -7,6 +7,7 @@ import { env, allowedOrigins, isDev } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { healthRouter } from './modules/health/health.routes.js';
 import { listingsRouter } from './modules/listings/listings.routes.js';
+import { searchRouter } from './modules/search/search.routes.js';
 import { authMiddleware } from './middleware/auth.js';
 import { logger } from './lib/logger.js';
 
@@ -57,7 +58,7 @@ export function createApp() {
   // app.use('/api/v1/users', authMiddleware, usersRouter);
   // app.use('/api/v1/vehicles', authMiddleware, vehiclesRouter);
   app.use('/api/v1/listings', authMiddleware, listingsRouter);
-  // app.use('/api/v1/search', searchRouter);
+  app.use('/api/v1/search', searchRouter);
   // app.use('/api/v1/bookings', authMiddleware, bookingsRouter);
   // app.use('/api/v1/admin', authMiddleware, adminRouter);
 
