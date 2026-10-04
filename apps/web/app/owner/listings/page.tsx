@@ -82,7 +82,7 @@ export default function OwnerListingsPage() {
               <div className="h-32 bg-white/5 rounded-t-2xl flex items-center justify-center relative overflow-hidden">
                 <MapPin className="w-8 h-8 text-white/20" />
                 <div className="absolute top-3 right-3">
-                  <StatusBadge status={listing.status === 'PUBLISHED' ? 'verified' : 'unavailable'} />
+                  <StatusBadge status={listing.status === 'PUBLISHED' ? 'available' : 'occupied'} />
                 </div>
               </div>
               <div className="p-5 flex flex-col flex-1">

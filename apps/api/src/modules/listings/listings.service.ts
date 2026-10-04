@@ -7,7 +7,7 @@ export class ListingsService {
   /**
    * Helper to get or create a personal organization for a user.
    */
-  private static async getOrCreatePersonalOrg(user: User) {
+  private static async getOrCreatePersonalOrg(user: { id: string, name: string | null, email: string }) {
     const membership = await prisma.organizationMember.findFirst({
       where: { userId: user.id },
       include: { organization: true },
@@ -33,7 +33,7 @@ export class ListingsService {
     return org.id;
   }
 
-  static async createListing(user: User, data: z.infer<typeof createListingSchema>) {
+  static async createListing(user: { id: string, name: string | null, email: string }, data: z.infer<typeof createListingSchema>) {
     const orgId = await this.getOrCreatePersonalOrg(user);
 
     return prisma.$transaction(async (tx) => {
@@ -41,12 +41,12 @@ export class ListingsService {
         data: {
           organizationId: orgId,
           title: data.title,
-          description: data.description,
+          description: data.description ?? null,
           address: data.address,
           latitude: data.latitude,
           longitude: data.longitude,
           vehicleType: data.vehicleType,
-          slotLabel: data.slotLabel,
+          slotLabel: data.slotLabel ?? null,
         },
       });
 
@@ -65,7 +65,7 @@ export class ListingsService {
     });
   }
 
-  static async getUserListings(user: User) {
+  static async getUserListings(user: { id: string }) {
     const memberships = await prisma.organizationMember.findMany({
       where: { userId: user.id },
       select: { organizationId: true },
@@ -85,7 +85,7 @@ export class ListingsService {
     });
   }
 
-  static async updateListing(user: User, listingId: string, data: z.infer<typeof updateListingSchema>) {
+  static async updateListing(user: { id: string }, listingId: string, data: z.infer<typeof updateListingSchema>) {
     // Verify ownership
     const memberships = await prisma.organizationMember.findMany({
       where: { userId: user.id, role: { in: ['OWNER', 'ADMIN'] } },
@@ -105,19 +105,24 @@ export class ListingsService {
     }
 
     return prisma.$transaction(async (tx) => {
+      const updateData: any = {
+        title: data.title,
+        description: data.description ?? (data.description === undefined ? undefined : null),
+        address: data.address,
+        latitude: data.latitude,
+        longitude: data.longitude,
+        status: data.status,
+        approvalMode: data.approvalMode,
+        vehicleType: data.vehicleType,
+        slotLabel: data.slotLabel ?? (data.slotLabel === undefined ? undefined : null),
+      };
+
+      // Clean up undefined properties so Prisma doesn't complain about exactOptionalPropertyTypes
+      Object.keys(updateData).forEach(key => updateData[key] === undefined && delete updateData[key]);
+
       const updated = await tx.listing.update({
         where: { id: listingId },
-        data: {
-          title: data.title,
-          description: data.description,
-          address: data.address,
-          latitude: data.latitude,
-          longitude: data.longitude,
-          status: data.status,
-          approvalMode: data.approvalMode,
-          vehicleType: data.vehicleType,
-          slotLabel: data.slotLabel,
-        },
+        data: updateData,
       });
 
       if (data.pricePerHour !== undefined) {
@@ -147,7 +152,7 @@ export class ListingsService {
     });
   }
 
-  static async getDashboardStats(user: User) {
+  static async getDashboardStats(user: { id: string }) {
     const memberships = await prisma.organizationMember.findMany({
       where: { userId: user.id },
       select: { organizationId: true },

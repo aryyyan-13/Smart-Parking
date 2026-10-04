@@ -44,7 +44,7 @@ export class ListingsController {
         res.status(401).json({ error: 'Unauthorized' });
         return;
       }
-      const listingId = req.params.id;
+      const listingId = req.params.id as string;
       const data = updateListingSchema.parse(req.body);
       const listing = await ListingsService.updateListing(req.user, listingId, data);
       res.json(listing);
@@ -59,7 +59,6 @@ export class ListingsController {
       }
       logger.error({ error }, 'Failed to update listing');
       res.status(500).json({ error: 'Internal server error' });
-    }
     }
   }
 

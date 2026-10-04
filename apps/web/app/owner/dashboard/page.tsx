@@ -272,7 +272,7 @@ export default function OwnerDashboardPage() {
                       <td className="py-3 px-3 font-bold text-accent-cyan">{b.slot}</td>
                       <td className="py-3 px-3 text-muted hidden sm:table-cell">{new Date(b.time).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
                       <td className="py-3 px-3">
-                        <StatusBadge status={b.status === "CONFIRMED" || b.status === "COMPLETED" ? "verified" : b.status === "PENDING" ? "pending" : "error"} />
+                        <StatusBadge status={b.status === "CONFIRMED" || b.status === "COMPLETED" ? "confirmed" : b.status === "PENDING" ? "pending" : "cancelled"} />
                       </td>
                       <td className="py-3 px-3 text-right font-bold text-white">{formatPrice(b.amountPaise, currency)}</td>
                     </tr>
