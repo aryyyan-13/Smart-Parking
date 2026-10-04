@@ -52,7 +52,11 @@ function FastagEntryCard({ session }: { session: ParkingSession }) {
   const isEntered = session.status === "active";
 
   useEffect(() => {
-    if (isEntered) setPhase("done");
+    let timeout: NodeJS.Timeout;
+    if (isEntered) {
+      timeout = setTimeout(() => setPhase("done"), 0);
+    }
+    return () => clearTimeout(timeout);
   }, [isEntered]);
 
   const handleEntry = () => {

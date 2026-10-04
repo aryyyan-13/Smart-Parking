@@ -11,6 +11,8 @@ import NeonButton from "@web/components/ui/NeonButton";
 import ThemeToggle from "@web/components/ui/ThemeToggle";
 import { useCurrencyStore, CURRENCIES, type CurrencyCode } from "@web/lib/currency-store";
 import { useParkingSessionStore } from "@web/lib/parking-session-store";
+import { createClient } from "@web/utils/supabase/client";
+import { signout } from "@web/app/login/actions";
 
 interface NavItem {
   label: string;
@@ -34,6 +36,18 @@ export default function Navbar() {
   const [hoveredPath, setHoveredPath] = useState<string | null>(null);
   const { active, setActive } = useCurrencyStore();
   const activeSession = useParkingSessionStore((s) => s.getActiveSession());
+  const [user, setUser] = useState<import("@supabase/supabase-js").User | null>(null);
+  const supabase = createClient();
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+    return () => subscription.unsubscribe();
+  }, [supabase.auth]);
 
   // Inject active session badge dynamically onto the Live Meter link
   const navItems: NavItem[] = BASE_NAV_ITEMS.map((item) => {
@@ -160,9 +174,17 @@ export default function Navbar() {
 
               <ThemeToggle />
 
-              <NeonButton variant="chrome" size="sm">
-                Sign In
-              </NeonButton>
+              {user ? (
+                <button onClick={() => signout()} className="px-4 py-1.5 rounded-xl bg-white/5 border border-white/12 text-xs font-medium text-white hover:bg-white/10 transition-colors">
+                  Sign Out
+                </button>
+              ) : (
+                <Link href="/login">
+                  <NeonButton variant="chrome" size="sm">
+                    Sign In
+                  </NeonButton>
+                </Link>
+              )}
 
               <NeonButton variant="primary" size="sm" pulse>
                 Launch App
@@ -235,9 +257,17 @@ export default function Navbar() {
                 </div>
 
                 <div className="flex gap-2 flex-1">
-                  <NeonButton variant="chrome" size="sm" fullWidth>
-                    Sign In
-                  </NeonButton>
+                  {user ? (
+                    <button onClick={() => signout()} className="px-4 py-1.5 rounded-xl bg-white/5 border border-white/12 text-xs font-medium text-white hover:bg-white/10 transition-colors flex-1">
+                      Sign Out
+                    </button>
+                  ) : (
+                    <Link href="/login" className="flex-1">
+                      <NeonButton variant="chrome" size="sm" fullWidth>
+                        Sign In
+                      </NeonButton>
+                    </Link>
+                  )}
                   <NeonButton variant="primary" size="sm" fullWidth>
                     Launch
                   </NeonButton>

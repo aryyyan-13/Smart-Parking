@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Timer, AlertTriangle, CheckCircle2, Plus, X,
+  Timer, AlertTriangle, CheckCircle2, Plus,
   ArrowLeft, Clock, Radio, CreditCard, Zap
 } from "lucide-react";
 import Navbar from "@web/components/layout/Navbar";
@@ -273,7 +273,7 @@ export default function LiveMeterPage() {
 
   useEffect(() => {
     if (session?.status === "active") {
-      tick(); // immediate
+      setTimeout(() => tick(), 0); // avoid synchronous setState
       intervalRef.current = setInterval(tick, 1000);
     }
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };

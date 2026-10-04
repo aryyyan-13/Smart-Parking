@@ -200,8 +200,15 @@ function ManagerOverrideModal({
 function LiveSessionRow({ session }: { session: ParkingSession }) {
   const [showOverride, setShowOverride] = useState(false);
 
+  const [now, setNow] = useState(0);
+  useEffect(() => {
+    setTimeout(() => setNow(Date.now()), 0);
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const elapsed = session.entryTime
-    ? Math.floor((Date.now() - session.entryTime) / 1000)
+    ? Math.floor((now - session.entryTime) / 1000)
     : 0;
   const fare = session.entryTime
     ? (elapsed / 3600) * session.pricePerHour
