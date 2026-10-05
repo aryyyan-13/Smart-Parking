@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { APIProvider, Map, AdvancedMarker, InfoWindow } from "@vis.gl/react-google-maps";
 import { MapPin, Navigation, Star } from "lucide-react";
@@ -103,6 +103,18 @@ export default function ParkingMap({
 }: ParkingMapProps) {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "";
   const [activeInfoWindow, setActiveInfoWindow] = useState<string | null>(null);
+  const [mapError, setMapError] = useState(false);
+  const [forceVectorMap, setForceVectorMap] = useState(false);
+
+  useEffect(() => {
+    // Intercept Google Maps auth failure globally
+    if (typeof window !== "undefined") {
+      (window as any).gm_authFailure = () => {
+        console.warn("Google Maps auth failure detected. Auto-switching to Open Vector Map.");
+        setMapError(true);
+      };
+    }
+  }, []);
 
   const selectedParking = parkings.find((p) => p.id === selectedId);
   const center = selectedParking
@@ -111,8 +123,8 @@ export default function ParkingMap({
       ? { lat: parkings[0].lat, lng: parkings[0].lng }
       : DEFAULT_CENTER;
 
-  // Open Dark Map (CartoDB Dark Matter) if Google Maps API key is not configured
-  if (!apiKey) {
+  // Open Dark Map (CartoDB Dark Matter) if Google Maps API key is not configured, failed, or user prefers vector
+  if (!apiKey || mapError || forceVectorMap) {
     return (
       <div className={`relative w-full h-full bg-bg-base overflow-hidden ${className}`}>
         {/* Full Open Dark Vector Map */}
@@ -122,7 +134,7 @@ export default function ParkingMap({
           onSelect={onSelect}
         />
 
-        {/* API Key info overlay */}
+        {/* API Key / Provider info overlay */}
         <div className="absolute top-4 left-4 right-4 sm:left-auto sm:right-4 z-20 max-w-sm">
           <GlassCard className="p-3 text-xs space-y-1.5" glow>
             <div className="flex items-center justify-between text-accent-cyan">
@@ -130,12 +142,22 @@ export default function ParkingMap({
                 <Navigation className="w-3.5 h-3.5 animate-pulse" /> Dark Vector Map Active
               </span>
               <span className="hud-label text-[9px] bg-accent-cyan/10 px-1.5 py-0.5 rounded border border-accent-cyan/20">
-                LIVE
+                100% ONLINE
               </span>
             </div>
             <p className="text-muted text-[11px] leading-relaxed">
-              Open Dark Tiles active. Add <code className="text-accent-cyan font-mono">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> in <code className="font-mono">.env.local</code> to activate Google Maps Platform.
+              {mapError
+                ? "Google Maps key encountered an authorization or billing error. Auto-fallback to High-Performance Dark Vector Map is active."
+                : "Rendering Open Dark Vector Tiles (CartoDB/OpenStreetMap). Fully operational with zero API key dependencies."}
             </p>
+            {apiKey && mapError && (
+              <button
+                onClick={() => { setMapError(false); setForceVectorMap(false); }}
+                className="mt-1 text-[10px] text-accent-cyan underline hover:text-white transition-colors cursor-pointer"
+              >
+                Retry Google Maps Platform
+              </button>
+            )}
           </GlassCard>
         </div>
       </div>

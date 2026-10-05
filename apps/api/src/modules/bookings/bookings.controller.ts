@@ -8,8 +8,10 @@ import { prisma } from '../../lib/prisma.js';
 export class BookingsController {
   static async create(req: Request, res: Response): Promise<void> {
     try {
-      let userId = req.user?.id;
-      if (!userId) {
+      let userId: string;
+      if (req.user?.id) {
+        userId = req.user.id;
+      } else {
         const firstUser = await prisma.user.findFirst();
         if (!firstUser) {
           res.status(500).json({ error: 'No user found to assign booking' });

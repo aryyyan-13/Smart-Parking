@@ -93,16 +93,18 @@ function Slot3D({
       </mesh>
 
       {/* Slot label */}
-      <Text
-        position={[0, 0.05, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        fontSize={0.18}
-        color={slot.occupied ? rawColors.dark.textMuted : rawColors.dark.textPrimary}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {slot.label}
-      </Text>
+      <React.Suspense fallback={null}>
+        <Text
+          position={[0, 0.05, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          fontSize={0.18}
+          color={slot.occupied ? rawColors.dark.textMuted : rawColors.dark.textPrimary}
+          anchorX="center"
+          anchorY="middle"
+        >
+          {slot.label}
+        </Text>
+      </React.Suspense>
 
       {/* Occupied car block */}
       {slot.occupied && (
