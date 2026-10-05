@@ -11,6 +11,7 @@ import { searchRouter } from './modules/search/search.routes.js';
 import { bookingsRouter } from './modules/bookings/bookings.routes.js';
 import { adminRouter } from './modules/admin/admin.routes.js';
 import { authMiddleware } from './middleware/auth.js';
+import { requestIdMiddleware } from './middleware/requestId.js';
 import { logger } from './lib/logger.js';
 
 export function createApp() {
@@ -46,8 +47,11 @@ export function createApp() {
   // ── Body parsing ────────────────────────────────────────────────────────────
   app.use(express.json({ limit: '1mb' }));
 
+  // ── Request ID tracking ────────────────────────────────────────────────────
+  app.use(requestIdMiddleware);
+
   // ── HTTP request logging (ponytail: replaced custom middleware) ─────────────
-  app.use(pinoHttp({ logger }));
+  app.use(pinoHttp({ logger, genReqId: (req) => (req as any).id }));
 
   // ── Routes ──────────────────────────────────────────────────────────────────
 

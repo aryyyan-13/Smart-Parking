@@ -1,3 +1,6 @@
+import 'express';
+import '@prisma/client';
+
 /**
  * Express Request type augmentations.
  * These are attached by middleware and available in all route handlers.
@@ -21,6 +24,12 @@ declare global {
         name: string | null;
       };
     }
+  }
+}
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    id: string;
   }
 }
 
