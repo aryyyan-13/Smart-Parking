@@ -1,0 +1,730 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary-fixed-variant":"#004395","surface-container-low":"#1b1b1f","inverse-on-surface":"#303034","on-tertiary-fixed":"#002113","on-secondary-fixed":"#001a42","background":"#131317","secondary":"#adc6ff","on-primary-container":"#007070","on-primary-fixed-variant":"#004f4f","error":"#ffb4ab","tertiary-fixed-dim":"#4edea3","inverse-primary":"#006a6a","surface-bright":"#39393d","inverse-surface":"#e5e1e7","surface-container-lowest":"#0e0e12","on-tertiary-container":"#00734e","surface-dim":"#131317","primary":"#ffffff","tertiary":"#ffffff","surface-container-high":"#2a292e","surface-tint":"#00dddd","primary-container":"#00fbfb","tertiary-container":"#6ffbbe","error-container":"#93000a","on-background":"#e5e1e7","outline":"#839493","on-primary-fixed":"#002020","on-secondary-container":"#e6ecff","secondary-fixed":"#d8e2ff","outline-variant":"#3a4a49","surface":"#131317","on-primary":"#003737","surface-container":"#1f1f23","on-error-container":"#ffdad6","surface-container-highest":"#353439","on-secondary":"#002e6a","on-error":"#690005","primary-fixed":"#00fbfb","secondary-container":"#0566d9","on-tertiary-fixed-variant":"#005236","on-surface":"#e5e1e7","secondary-fixed-dim":"#adc6ff","on-surface-variant":"#b9cac9","surface-variant":"#353439","tertiary-fixed":"#6ffbbe","primary-fixed-dim":"#00dddd","on-tertiary":"#003824"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-xl":"2rem","margin-tablet":"1.5rem","margin":"1rem","space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","gutter-desktop":"1.5rem"},"fontFamily":{"headline-md":["Space Grotesk"],"label-data-lg":["JetBrains Mono"],"headline-lg-mobile":["Space Grotesk"],"body-sm":["Inter"],"body-md":["Inter"],"label-data-md":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"display-hero-mobile":["Space Grotesk"],"body-lg":["Inter"],"label-data-sm":["JetBrains Mono"],"display-hero":["Space Grotesk"],"headline-sm":["Space Grotesk"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-data-lg":["16px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-data-md":["13px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"display-hero-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-data-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"400"}],"display-hero":["48px",{"lineHeight":"56px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-20 w-full px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><img alt="SmartParking.AI Pulsing Radar Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA535wc6qgLP3U06Nul8jWNMFGCXl59RAxwYquREjQdrP8OM2301GXTxYeJTfb4vT-d7t_s3yg_qGR2UWJQ6E6wXTxOx4mKRkVsqlx17_6o6wTfkhZtdqs8IXu-yfxiReF5rqxk_whKEXSaYoTtSnl5C5nlP45G8HltoGSWeEWiimLqfoh-xOtiGQ8-aXSVolsr_MFCeXQQIrMvO4mTYImicWaLsGHsdYz6sIwRJ_cnzSU2zvaSwaIF2Q"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">SmartParking<span class="text-primary-fixed">.AI</span></span><div class="flex items-center gap-space-xs"><span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_rgba(111,251,190,0.8)] animate-pulse"></span><span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim tracking-wider uppercase">ONLINE // SATELLITE HUD v2.4</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary-fixed font-bold rounded-lg shadow-[0_0_12px_rgba(0,251,251,0.25)]"><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="explore-map" href="#">Explore &amp; Map</a><a aria-current="page" class="px-space-sm py-space-xs transition-all bg-surface-container-high text-primary-fixed font-bold rounded-lg shadow-[0_0_12px_rgba(0,251,251,0.25)]" data-path="3d-garage-bay" href="#">3D Garage Bay</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="digital-pass" href="#">Digital Pass</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="live-meter" href="#">Live Meter</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="my-passes" href="#">My Passes</a></nav></div><div class="hidden md:flex items-center flex-1 max-w-md mx-space-md"><div class="w-full flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-lowest/90 rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] focus-within:shadow-[0_0_12px_rgba(0,251,251,0.35)] transition-all"><span class="material-symbols-outlined text-outline text-[18px]">radar</span><input class="w-full bg-transparent font-label-data-sm text-label-data-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="Search airport hubs, cyber towers, fast chargers... (Press /)" type="text"><kbd class="font-label-data-sm text-label-data-sm bg-surface-container-high text-on-surface-variant px-space-xs py-0.5 rounded shadow-[0_0_4px_rgba(0,0,0,0.5)]">/</kbd></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden sm:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-primary-fixed-dim text-[16px]">currency_exchange</span><select class="bg-transparent font-label-data-sm text-label-data-sm text-primary-fixed cursor-pointer focus:outline-none"><option class="bg-surface-container-low text-on-surface" value="INR">INR (₹)</option><option class="bg-surface-container-low text-on-surface" value="USD">USD ($)</option><option class="bg-surface-container-low text-on-surface" value="EUR">EUR (€)</option><option class="bg-surface-container-low text-on-surface" value="GBP">GBP (£)</option></select></div><button class="hidden lg:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low text-primary-fixed font-label-data-md text-label-data-md shadow-[0_0_12px_rgba(0,251,251,0.25)] hover:bg-surface-container-high hover:text-primary transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add_circle</span><span class="">+ Host a Spot</span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden md:flex flex-col text-right"><span class="font-label-data-sm text-label-data-sm text-primary-fixed font-semibold tracking-wider">#IND-9021</span><span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">FASTag VIP</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-20 bg-background min-h-[calc(100vh-5rem)] pb-24 md:pb-0"><div class="flex flex-col w-full text-on-surface">
+<!-- TOP TELEMETRY STATUS BAR -->
+<section class="w-full bg-surface-container-lowest px-margin md:px-margin-desktop py-space-sm shadow-md relative z-30">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex flex-wrap items-center gap-space-md">
+<a class="inline-flex items-center gap-space-xs font-label-data-sm text-label-data-sm text-primary-fixed hover:text-primary transition-all group" data-path="explore-map" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="">← Return to Map Search</span>
+</a>
+<div class="h-4 w-px bg-surface-container-high hidden sm:block"></div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">Nexus AeroPark BKC</h1>
+<span class="font-label-data-sm text-label-data-sm text-outline-variant uppercase">// Deck B1-L2</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Terminal Multi-Level Autonomous Garage • Gate 4B Direct Access</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- Pulse Badge -->
+<div class="flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-high rounded-full shadow-sm">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_rgba(111,251,190,0.9)] animate-pulse"></span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-semibold tracking-wider uppercase">ANPR &amp; FASTag ENABLED</span>
+</div>
+<!-- Weather Telemetry -->
+<div class="flex items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant bg-surface-container-low px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed-dim">wb_sunny</span>
+<span class="">28°C CLEAR • AIR Q 94</span>
+</div>
+<!-- Base Rate Token -->
+<div class="bg-surface-container-high px-space-sm py-1 rounded-lg">
+<span class="font-label-data-sm text-label-data-sm text-outline uppercase">BASE: </span>
+<span class="font-label-data-md text-label-data-md text-primary font-bold">₹40.00 <span class="font-body-sm text-body-sm text-outline font-normal">/ hr</span></span>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN VIEWPORT: COCKPIT THREE-COLUMN CO-ORDINATE SYSTEM -->
+<section class="w-full px-margin md:px-margin-desktop py-space-md relative z-10 flex-1">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT DOCK: VERTICAL CYBERPUNK FLOOR SELECTOR -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md">
+<!-- Floor Deck Module -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-lg flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">elevator</span>
+<span class="font-headline-sm text-headline-sm text-primary tracking-tight">Level Deck</span>
+</div>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed uppercase font-semibold">ONLINE</span>
+</div>
+<!-- Quick Floor Filter Chips -->
+<div class="flex gap-space-xs bg-surface-container-low p-1 rounded-lg">
+<button class="flex-1 py-1 font-label-data-sm text-label-data-sm text-primary bg-surface-container-highest rounded text-center transition-all font-semibold" id="filter-all">All Bays</button>
+<button class="flex-1 py-1 font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-primary rounded text-center transition-all" id="filter-ev">EV Only</button>
+<button class="flex-1 py-1 font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-primary rounded text-center transition-all" id="filter-vip">VIP</button>
+</div>
+<!-- Floor Stack -->
+<div class="flex flex-col gap-space-xs"><!-- Floor B1 (Active) -->
+<button class="w-full text-left p-space-sm bg-surface-container-high text-primary rounded-lg shadow-[0_0_12px_rgba(0,251,251,0.25)] flex items-center justify-between group transition-all" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-data-lg text-label-data-lg text-primary-fixed font-bold">B1</span>
+<div class="flex flex-col">
+<span class="font-label-data-sm text-label-data-sm text-primary font-bold">Basement Deck 01</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed">218/272 Available • 4 Sectors</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">chevron_right</span>
+</button>
+<!-- Floor G -->
+<button class="w-full text-left p-space-sm bg-surface-container-low hover:bg-surface-container-high text-on-surface rounded-lg transition-all flex items-center justify-between group" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-data-lg text-label-data-lg text-outline font-bold">G</span>
+<div class="flex flex-col">
+<span class="font-label-data-sm text-label-data-sm text-on-surface">Ground Valet Hub</span>
+<span class="font-label-data-sm text-label-data-sm text-error font-medium">18/160 Low Bay Cap</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">lock</span>
+</button>
+<!-- Floor L1 -->
+<button class="w-full text-left p-space-sm bg-surface-container-low hover:bg-surface-container-high text-on-surface rounded-lg transition-all flex items-center justify-between group" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-data-lg text-label-data-lg text-outline font-bold">L1</span>
+<div class="flex flex-col">
+<span class="font-label-data-sm text-label-data-sm text-on-surface">Hyper EV Terminal</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">185/210 Ultra EV</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">bolt</span>
+</button>
+<!-- Floor L2 -->
+<button class="w-full text-left p-space-sm bg-surface-container-low hover:bg-surface-container-high text-on-surface rounded-lg transition-all flex items-center justify-between group" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-data-lg text-label-data-lg text-outline font-bold">L2</span>
+<div class="flex flex-col">
+<span class="font-label-data-sm text-label-data-sm text-on-surface">Rooftop Vista Deck</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">94/120 Sky Deck</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">roofing</span>
+</button></div>
+<!-- Deck Capacity Telemetry Graphic -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-space-xs mt-space-xs"><div class="flex justify-between font-label-data-sm text-label-data-sm">
+<span class="text-on-surface-variant">B1 Fleet Load Factor</span>
+<span class="text-primary-fixed font-bold">19.8% Occupied (54/272)</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-lowest rounded-full overflow-hidden flex">
+<div class="bg-primary-container h-full w-[20%]"></div>
+<div class="bg-tertiary-container h-full w-[35%] opacity-40"></div>
+</div>
+<div class="flex justify-between font-label-data-sm text-label-data-sm text-outline mt-1">
+<span class="">Sensor Array: 288 Lidar Nodes</span>
+<span class="">Latency: 8ms</span>
+</div></div>
+</div>
+<!-- Facility Environmental HUD Card -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-lg flex flex-col gap-space-xs">
+<span class="font-label-data-sm text-label-data-sm text-outline uppercase">Zone Parameters</span>
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs font-label-data-sm text-label-data-sm">
+<div class="bg-surface-container-low p-space-xs rounded">
+<span class="text-outline block">Ceiling Clr:</span>
+<span class="text-primary font-bold">2.45 Meters</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded">
+<span class="text-outline block">Surveillance:</span>
+<span class="text-tertiary-fixed font-bold">360° Active</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded">
+<span class="text-outline block">Charger Max:</span>
+<span class="text-primary-fixed font-bold">150 kW CCS2</span>
+</div>
+<div class="bg-surface-container-low p-space-xs rounded">
+<span class="text-outline block">Security:</span>
+<span class="text-primary font-bold">Biometric 2FA</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- CENTER 3D WEBGL PARKING GARAGE SIMULATION VIEWPORT -->
+<main class="lg:col-span-6 flex flex-col gap-space-sm">
+<!-- Interactive 3D Canvas Box -->
+<div class="relative w-full aspect-[4/3] sm:aspect-[16/11] bg-surface-container-lowest rounded-xl overflow-hidden shadow-2xl flex flex-col">
+<!-- Live Viewfinder HUD Overlays -->
+<div class="absolute top-space-sm left-space-sm right-space-sm z-20 flex items-center justify-between pointer-events-none">
+<div class="flex items-center gap-space-xs bg-surface-container-lowest/80 backdrop-blur-md px-space-sm py-1 rounded shadow">
+<span class="w-2 h-2 rounded-full bg-primary-fixed shadow-[0_0_8px_rgba(0,251,251,0.8)] animate-pulse"></span>
+<span class="font-label-data-sm text-label-data-sm text-primary-fixed font-semibold tracking-wider uppercase">DECK SIMULATOR // 60 FPS</span>
+</div>
+<div class="bg-surface-container-lowest/80 backdrop-blur-md px-space-sm py-1 rounded shadow font-label-data-sm text-label-data-sm text-outline">
+              COORDS: <span class="text-primary">19.0688° N, 72.8704° E</span>
+</div>
+</div>
+<!-- Holographic 3D Interactive Garage Deck (SVG Spatial Simulation) -->
+<div class="relative w-full h-full flex items-center justify-center bg-gradient-to-b from-surface-container-lowest via-surface-container-low to-surface-container-lowest select-none p-4"><!-- High-Capacity Multi-Sector SVG Matrix (Accommodating 50-80 bays per sector block) -->
+<svg class="w-full h-full max-h-full transition-transform duration-500 ease-out" id="deck-svg" viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="glow-cyan" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="4"></feGaussianBlur>
+<feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+</filter>
+<filter height="140%" id="glow-amber" width="140%" x="-20%" y="-20%">
+<feGaussianBlur result="blur" stdDeviation="3"></feGaussianBlur>
+<feComposite in="SourceGraphic" in2="blur" operator="over"></feComposite>
+</filter>
+<linearGradient id="activeBlockGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#00fbfb" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#0566d9" stop-opacity="0.05"></stop>
+</linearGradient>
+<linearGradient id="sectorBgGrad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#1f1f23" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#0e0e12" stop-opacity="0.85"></stop>
+</linearGradient>
+</defs>
+
+<!-- Background Isometric Runway Grid -->
+<g opacity="0.2">
+<path d="M 40 40 L 920 40 M 40 160 L 920 160 M 40 310 L 920 310 M 40 460 L 920 460 M 40 580 L 920 580" stroke="#839493" stroke-dasharray="4 8" stroke-width="0.8"></path>
+<path d="M 40 40 L 40 580 M 260 40 L 260 580 M 480 40 L 480 580 M 700 40 L 700 580 M 920 40 L 920 580" stroke="#839493" stroke-dasharray="4 8" stroke-width="0.8"></path>
+</g>
+
+<!-- CENTRAL THOROUGHFARE / MAIN ARTERIAL LANE -->
+<g opacity="0.7">
+<rect fill="#1b1b1f" fill-opacity="0.4" height="44" stroke="#3a4a49" stroke-dasharray="6 6" stroke-width="1" width="860" x="50" y="288"></rect>
+<polygon fill="#00dddd" points="200,305 215,310 200,315"></polygon>
+<polygon fill="#00dddd" points="460,305 475,310 460,315"></polygon>
+<polygon fill="#00dddd" points="720,305 735,310 720,315"></polygon>
+<text fill="#00dddd" font-family="JetBrains Mono" font-size="10" font-weight="bold" letter-spacing="2" text-anchor="middle" x="480" y="314">◄ MAIN ARTERIAL LOGISTICS LANE • AR-GUIDED FASTAG RECEPTOR ►</text>
+</g>
+
+<!-- SECTOR ALPHA (TOP-LEFT): 64 VEHICLE BLOCK (Active Focus) -->
+<g id="sector-alpha">
+<!-- Sector Outline Card -->
+<rect fill="url(#activeBlockGrad)" height="220" rx="6" stroke="#00fbfb" stroke-dasharray="4 2" stroke-width="1.5" width="410" x="50" y="50"></rect>
+<!-- Header Badge -->
+<rect fill="#131317" height="24" rx="4" stroke="#00fbfb" stroke-width="1" width="390" x="60" y="58"></rect>
+<circle cx="75" cy="70" fill="#6ffbbe" r="4"></circle>
+<text fill="#00fbfb" font-family="Space Grotesk" font-size="12" font-weight="bold" x="88" y="74">SECTOR ALPHA</text>
+<rect fill="#004f4f" height="16" rx="2" width="145" x="190" y="62"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="10" font-weight="bold" x="196" y="74">BLOCK CAP: 64 BAYS</text>
+<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" x="348" y="74">51 FREE (80%)</text>
+
+<!-- Bay Racks Grid: 4 Rows of 16 bays = 64 bays -->
+<!-- Row A (16 bays) -->
+<g transform="translate(65, 90)">
+<rect fill="#0e0e12" height="28" rx="2" stroke="#3a4a49" stroke-width="0.8" width="380" x="0" y="0"></rect>
+<!-- 16 Micro Bays -->
+<!-- bays 1-7 (open) -->
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="3" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="26" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="49" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="72" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="95" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="118" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="141" y="3"></rect>
+<!-- TARGET ACTIVE BAY: A-08 (Spot 08) High Cyber Highlight -->
+<rect class="cursor-pointer" fill="#00fbfb" filter="url(#glow-cyan)" height="26" id="bay-a08-reticle" rx="2" stroke="#ffffff" stroke-width="1.5" width="24" x="162" y="1"></rect>
+<rect fill="#0566d9" height="20" rx="1" stroke="#ffffff" stroke-width="1" width="20" x="164" y="4"></rect>
+<!-- Remaining bays in Row A -->
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="189" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="212" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="235" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="258" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="281" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="304" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="327" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="350" y="3"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="165" y="36">BAY A-08 [RESERVED]</text>
+</g>
+
+<!-- Row B (16 bays) -->
+<g transform="translate(65, 126)">
+<rect fill="#0e0e12" height="28" rx="2" stroke="#3a4a49" stroke-width="0.8" width="380" x="0" y="0"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="3" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="26" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="49" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="72" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="95" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="118" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="141" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="164" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="187" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="210" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="233" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="256" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="279" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="302" y="3"></rect>
+<rect fill="#93000a" fill-opacity="0.8" height="22" rx="1" stroke="#ffb4ab" stroke-width="0.75" width="20" x="325" y="3"></rect>
+<rect fill="#003824" height="22" rx="1" stroke="#00dddd" stroke-width="0.75" width="20" x="348" y="3"></rect>
+</g>
+
+<!-- Row C & D (32 bays combined dense cluster) -->
+<g transform="translate(65, 162)">
+<rect fill="#0e0e12" height="52" rx="2" stroke="#3a4a49" stroke-width="0.8" width="380" x="0" y="0"></rect>
+<!-- Micro Visual Bay Grid -->
+<line stroke="#3a4a49" stroke-dasharray="2 4" stroke-width="1" x1="0" x2="380" y1="26" y2="26"></line>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="10" y="18">AISLE C1-C16 [HIGH-SPEED WIRELESS INDUCTION PADS]</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="10" y="42">AISLE D1-D16 [150kW CCS2 COMMERCIAL PODS • ELEVATOR GATE 4B]</text>
+<!-- Status light chain -->
+<circle cx="350" cy="15" fill="#6ffbbe" r="3"></circle>
+<circle cx="362" cy="15" fill="#6ffbbe" r="3"></circle>
+<circle cx="374" cy="15" fill="#ffb4ab" r="3"></circle>
+<circle cx="350" cy="39" fill="#6ffbbe" r="3"></circle>
+<circle cx="362" cy="39" fill="#6ffbbe" r="3"></circle>
+<circle cx="374" cy="39" fill="#6ffbbe" r="3"></circle>
+</g>
+</g>
+
+<!-- SECTOR BETA (TOP-RIGHT): 72 VEHICLE BLOCK -->
+<g id="sector-beta">
+<rect fill="url(#sectorBgGrad)" height="220" rx="6" stroke="#3a4a49" stroke-width="1" width="440" x="480" y="50"></rect>
+<rect fill="#131317" height="24" rx="4" stroke="#839493" stroke-width="0.8" width="420" x="490" y="58"></rect>
+<circle cx="505" cy="70" fill="#00dddd" r="4"></circle>
+<text fill="#e5e1e7" font-family="Space Grotesk" font-size="12" font-weight="bold" x="518" y="74">SECTOR BETA (VALET &amp; VIP FLEET)</text>
+<rect fill="#0566d9" height="16" rx="2" width="150" x="650" y="62"></rect>
+<text fill="#ffffff" font-family="JetBrains Mono" font-size="10" font-weight="bold" x="656" y="74">BLOCK CAP: 72 BAYS</text>
+<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" x="820" y="74">58 FREE</text>
+
+<!-- Multi-Aisle Dense Bays Viewport -->
+<g transform="translate(495, 90)">
+<rect fill="#0e0e12" height="124" rx="3" stroke="#3a4a49" stroke-width="0.8" width="410" x="0" y="0"></rect>
+<!-- Micro bay lines representing 72 commercial capacity -->
+<path d="M 10 32 L 400 32 M 10 64 L 400 64 M 10 96 L 400 96" stroke="#3a4a49" stroke-dasharray="2 4" stroke-width="1"></path>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="22">AISLE B_NORD [BAY 01 - 18] • 350kW ULTRA MEGA-CHARGERS</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="54">AISLE B_MID  [BAY 19 - 36] • AUTONOMOUS ROBOTIC STACKER</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="86">AISLE B_SUD  [BAY 37 - 54] • AIRPORT VIP CONCIERGE LOCKERS</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="116">AISLE B_EAST [BAY 55 - 72] • ANPR AUTOMATED RECHARGE PADS</text>
+<!-- Status Pill Array -->
+<rect fill="#003824" height="16" rx="2" width="55" x="345" y="10"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="350" y="21">15 OPEN</text>
+<rect fill="#003824" height="16" rx="2" width="55" x="345" y="42"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="350" y="53">14 OPEN</text>
+<rect fill="#003824" height="16" rx="2" width="55" x="345" y="74"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="350" y="85">17 OPEN</text>
+<rect fill="#003824" height="16" rx="2" width="55" x="345" y="104"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="350" y="115">12 OPEN</text>
+</g>
+</g>
+
+<!-- SECTOR GAMMA (BOTTOM-LEFT): 80 VEHICLE BLOCK -->
+<g id="sector-gamma">
+<rect fill="url(#sectorBgGrad)" height="220" rx="6" stroke="#3a4a49" stroke-width="1" width="410" x="50" y="350"></rect>
+<rect fill="#131317" height="24" rx="4" stroke="#839493" stroke-width="0.8" width="390" x="60" y="358"></rect>
+<circle cx="75" cy="370" fill="#6ffbbe" r="4"></circle>
+<text fill="#e5e1e7" font-family="Space Grotesk" font-size="12" font-weight="bold" x="88" y="374">SECTOR GAMMA (HIGH-DENSITY MULTI-BAY)</text>
+<rect fill="#004f4f" height="16" rx="2" width="150" x="200" y="362"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="10" font-weight="bold" x="206" y="374">BLOCK CAP: 80 BAYS</text>
+<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" x="360" y="374">66 FREE</text>
+
+<g transform="translate(65, 390)">
+<rect fill="#0e0e12" height="130" rx="3" stroke="#3a4a49" stroke-width="0.8" width="380" x="0" y="0"></rect>
+<path d="M 10 32 L 370 32 M 10 64 L 370 64 M 10 96 L 370 96" stroke="#3a4a49" stroke-dasharray="2 4" stroke-width="1"></path>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="22">TIER G1 [20 BAYS] • COMMERCIAL REVERSING BAYS G-01 TO G-20</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="54">TIER G2 [20 BAYS] • DUAL PORT RAPID CHARGE G-21 TO G-40</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="86">TIER G3 [20 BAYS] • AUTONOMOUS SHUTTLE DOCK G-41 TO G-60</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="116">TIER G4 [20 BAYS] • EXPRESS COMMUTER SLOTS G-61 TO G-80</text>
+<!-- Density indicators -->
+<rect fill="#004f4f" height="14" rx="2" width="40" x="325" y="12"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="330" y="22">18 AV</text>
+<rect fill="#004f4f" height="14" rx="2" width="40" x="325" y="44"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="330" y="54">16 AV</text>
+<rect fill="#004f4f" height="14" rx="2" width="40" x="325" y="76"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="330" y="86">17 AV</text>
+<rect fill="#004f4f" height="14" rx="2" width="40" x="325" y="106"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="330" y="116">15 AV</text>
+</g>
+</g>
+
+<!-- SECTOR DELTA (BOTTOM-RIGHT): 56 VEHICLE BLOCK -->
+<g id="sector-delta">
+<rect fill="url(#sectorBgGrad)" height="220" rx="6" stroke="#3a4a49" stroke-width="1" width="440" x="480" y="350"></rect>
+<rect fill="#131317" height="24" rx="4" stroke="#839493" stroke-width="0.8" width="420" x="490" y="358"></rect>
+<circle cx="505" cy="370" fill="#6ffbbe" r="4"></circle>
+<text fill="#e5e1e7" font-family="Space Grotesk" font-size="12" font-weight="bold" x="518" y="374">SECTOR DELTA (EV HYPER TERMINAL)</text>
+<rect fill="#005236" height="16" rx="2" width="150" x="650" y="362"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="10" font-weight="bold" x="656" y="374">BLOCK CAP: 56 BAYS</text>
+<text fill="#4edea3" font-family="JetBrains Mono" font-size="10" x="820" y="374">43 FREE</text>
+
+<g transform="translate(495, 390)">
+<rect fill="#0e0e12" height="130" rx="3" stroke="#3a4a49" stroke-width="0.8" width="410" x="0" y="0"></rect>
+<path d="M 10 32 L 400 32 M 10 64 L 400 64 M 10 96 L 400 96" stroke="#3a4a49" stroke-dasharray="2 4" stroke-width="1"></path>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="22">BAY ROW D-01 TO D-14 • ULTRA FAST DC CHARGERS (350kW)</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="54">BAY ROW D-15 TO D-28 • AUTONOMOUS ROBOTIC CHARGE NOZZLE</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="86">BAY ROW D-29 TO D-42 • TESLA NACS &amp; CCS2 UNIVERSAL TERMINALS</text>
+<text fill="#839493" font-family="JetBrains Mono" font-size="9" x="15" y="116">BAY ROW D-43 TO D-56 • OVERNIGHT SMART LOAD-BALANCED PODS</text>
+<rect fill="#004f4f" height="14" rx="2" width="55" x="345" y="12"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="350" y="22">11 READY</text>
+<rect fill="#004f4f" height="14" rx="2" width="55" x="345" y="44"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="350" y="54">10 READY</text>
+<rect fill="#004f4f" height="14" rx="2" width="55" x="345" y="76"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="350" y="86">12 READY</text>
+<rect fill="#004f4f" height="14" rx="2" width="55" x="345" y="106"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="8" x="350" y="116">10 READY</text>
+</g>
+</g>
+
+<!-- Center Aggregated Telemetry Badge -->
+<g transform="translate(350, 580)">
+<rect fill="#1b1b1f" height="24" rx="4" stroke="#00dddd" stroke-width="1" width="260" x="0" y="0"></rect>
+<text fill="#00fbfb" font-family="JetBrains Mono" font-size="10" font-weight="bold" text-anchor="middle" x="130" y="16">DECK B1 TOTAL CAPACITY: 272 VEHICLES</text>
+</g>
+</svg>
+
+<!-- Tactical Pinned HUD Float on Active Spot (Sector Alpha • Bay A-08) -->
+<div class="absolute bottom-16 left-1/2 -translate-x-1/2 bg-surface-container-highest/95 backdrop-blur-xl px-space-md py-space-xs rounded-xl shadow-xl pointer-events-none flex items-center gap-space-sm border border-primary-fixed/20">
+<span class="w-3 h-3 rounded-full bg-primary-fixed shadow-[0_0_10px_rgba(0,251,251,1)] animate-pulse"></span>
+<div class="flex flex-col">
+<span class="font-label-data-sm text-label-data-sm text-primary font-bold">SECTOR ALPHA • BAY A-08 [BLOCK CAP: 64]</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">150kW CCS2 DEDICATED POD • ELEVATOR 15M • TOTAL DECK CAP: 272</span>
+</div>
+</div></div>
+<!-- Bottom Viewport 3D Camera & Orientation Toolbar -->
+<div class="p-space-xs bg-surface-container-low flex items-center justify-between z-20">
+<div class="flex items-center gap-space-xs">
+<button class="px-space-xs py-1 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-data-sm text-label-data-sm flex items-center gap-1 transition-colors" id="cam-orbit" title="Orbit View">
+<span class="material-symbols-outlined text-[16px]">orbit</span>
+<span class="hidden sm:inline">Orbit</span>
+</button>
+<button class="px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-data-sm text-label-data-sm flex items-center gap-1 transition-colors" id="cam-blueprint" title="Top-Down Blueprint">
+<span class="material-symbols-outlined text-[16px]">grid_4x4</span>
+<span class="hidden sm:inline">Blueprint</span>
+</button>
+<button class="px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-data-sm text-label-data-sm flex items-center gap-1 transition-colors" id="cam-reset" title="Reset Camera">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span class="hidden sm:inline">Reset</span>
+</button>
+</div>
+<!-- Legend Dots -->
+<div class="flex items-center gap-space-sm font-label-data-sm text-label-data-sm">
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed"></span>
+<span class="text-on-surface-variant">Free</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="text-on-surface-variant">Occupied</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary-fixed"></span>
+<span class="text-primary font-semibold">Target</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Live Environmental Sensory Feed Strip -->
+<div class="w-full bg-surface-container-lowest p-space-sm rounded-xl shadow flex items-center justify-between flex-wrap gap-space-xs font-label-data-sm text-label-data-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">sensors</span>
+<span class="text-on-surface">Ground Plate Induction:</span>
+<span class="text-tertiary-fixed font-bold">READY</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[18px]">speed</span>
+<span class="text-on-surface">Target Approach:</span>
+<span class="text-primary">Bay #8 (Lane B South)</span>
+</div>
+<div class="text-outline">RFID Uplink: OK (99.8%)</div>
+</div>
+</main>
+<!-- RIGHT SIDEBAR: BOOKING CONFIGURATION GLASS HUD PANEL -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-2xl flex flex-col gap-space-md relative overflow-hidden">
+<!-- Glass Top Header -->
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">tune</span>
+<h2 class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">Reservation</h2>
+</div>
+<span class="font-label-data-sm text-label-data-sm text-primary-fixed uppercase font-semibold">CONF-09</span>
+</div>
+<!-- Selected Bay Widget -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-data-sm text-label-data-sm text-outline uppercase tracking-wider">ASSIGNED POSITION</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-semibold">• DIRECT ELEVATOR</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-label-data-lg text-label-data-lg text-primary font-bold" id="slot-name-display">Level B1 • Spot 09</span>
+<span class="font-label-data-sm text-label-data-sm text-primary-fixed">₹40/h</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Pillar 4B • 150kW CCS2 Charger Integrated</span>
+</div>
+<!-- Quick Action: Auto-Assign Nearest Free Spot -->
+<button class="w-full py-space-xs px-space-sm bg-surface-container-high hover:bg-surface-bright text-primary-fixed font-label-data-sm text-label-data-sm rounded-lg flex items-center justify-center gap-space-xs transition-all shadow-sm" id="btn-auto-assign" type="button">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">bolt</span>
+<span class="">Auto-Assign Nearest Free Spot</span>
+</button>
+<!-- Vehicle Plate Auto-fill & FASTag -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-data-sm text-label-data-sm text-on-surface-variant">Linked Telemetry Vehicle</label>
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1"><div class="flex items-center justify-between">
+<span class="font-label-data-sm text-label-data-sm text-outline uppercase tracking-wider">ASSIGNED POSITION</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-semibold">• DIRECT ELEVATOR</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-label-data-lg text-label-data-lg text-primary font-bold" id="slot-name-display">Level B1 • Sector Alpha (Bay A-08)</span>
+<span class="font-label-data-sm text-label-data-sm text-primary-fixed">₹40/h</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Block Cap: 64 Vehicles • Pillar 4B • 150kW CCS2 Charger</span></div>
+</div>
+<!-- Duration Interactive Slider & Stepper -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-label-data-sm text-label-data-sm text-on-surface-variant">Duration Window</label>
+<span class="font-label-data-md text-label-data-md text-primary-fixed font-bold" id="duration-val-label">4 Hours</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-primary-container" id="duration-range" max="24" min="1" type="range" value="4">
+<!-- Quick Duration Pills -->
+<div class="grid grid-cols-4 gap-1 mt-1">
+<button class="py-1 bg-surface-container-low hover:bg-surface-container-high rounded text-center font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-primary transition-colors" onclick="setDuration(1)"><div class="flex items-center justify-between">
+<span class="font-label-data-sm text-label-data-sm text-outline uppercase tracking-wider">ASSIGNED POSITION</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-semibold">• DIRECT ELEVATOR</span>
+</div>
+<div class="flex items-baseline justify-between mt-1">
+<span class="font-label-data-lg text-label-data-lg text-primary font-bold" id="slot-name-display">Level B1 • Sector Alpha (Bay A-08)</span>
+<span class="font-label-data-sm text-label-data-sm text-primary-fixed">₹40/h</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Block Cap: 64 Vehicles • Pillar 4B • 150kW CCS2 Charger</span></button>
+<button class="py-1 bg-surface-container-low hover:bg-surface-container-high rounded text-center font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-primary transition-colors" onclick="setDuration(2)">+2h</button>
+<button class="py-1 bg-surface-container-high rounded text-center font-label-data-sm text-label-data-sm text-primary font-bold" onclick="setDuration(4)">+4h</button>
+<button class="py-1 bg-surface-container-low hover:bg-surface-container-high rounded text-center font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-primary transition-colors" onclick="setDuration(12)">Night</button>
+</div>
+</div>
+<!-- EV Surge Checkbox Option -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-high accent-primary-container cursor-pointer" id="ev-charging-check" onchange="calculateCost()" type="checkbox">
+<label class="font-label-data-sm text-label-data-sm text-on-surface cursor-pointer select-none" for="ev-charging-check">
+                150kW Fast Charging Surge
+              </label>
+</div>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed">+₹120.00</span>
+</div>
+<!-- Cost Breakdown HUD (JetBrains Mono) -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col gap-1 font-label-data-sm text-label-data-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Base Parking (<span id="calc-hours" class="">4</span> hrs × ₹40.00)</span>
+<span class="text-on-surface" id="calc-base">₹160.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">EV Fast Charging</span>
+<span class="text-on-surface" id="calc-ev">₹0.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">FASTag Gateway Protocol</span>
+<span class="text-on-surface">₹15.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">GST (18%)</span>
+<span class="text-on-surface" id="calc-tax">₹31.50</span>
+</div>
+<div class="h-px bg-surface-container-high my-1"></div>
+<div class="flex justify-between items-baseline font-bold">
+<span class="text-primary uppercase tracking-wider">TOTAL DUE:</span>
+<span class="font-label-data-lg text-label-data-lg text-primary-fixed" id="calc-total">₹206.50</span>
+</div>
+</div>
+<!-- Primary Reservation CTA -->
+<button class="w-full py-space-sm bg-primary-container text-on-primary-container font-label-data-md text-label-data-md rounded-lg font-bold shadow-[0_0_20px_rgba(0,251,251,0.4)] hover:shadow-[0_0_30px_rgba(0,251,251,0.6)] active:scale-[0.98] transition-all flex items-center justify-center gap-space-xs" id="btn-open-payment" type="button">
+<span class="">Confirm &amp; Proceed to Payment [<span id="cta-total" class="">₹206.50</span>]</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</aside>
+</div>
+</section>
+<!-- CYBER PAYMENT GATEWAY MODAL (HIGH-SECURITY GLASS TELEMETRY) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-2xl px-margin hidden transition-opacity" id="payment-modal">
+<div class="relative w-full max-w-xl bg-surface-container-low rounded-xl shadow-[0_0_50px_rgba(0,0,0,0.9)] p-space-lg flex flex-col gap-space-md">
+<!-- Top Modal Security Bar -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">verified_user</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">CyberPay Tactical Gateway</h3>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-semibold tracking-wider">SSL 256-BIT ENCRYPTED • FASTAG AUTO-RESOLVER</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center justify-center text-on-surface hover:text-primary transition-colors" id="btn-close-payment" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Live Payment Summary Pill -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg flex items-center justify-between font-label-data-sm text-label-data-sm">
+<div class="flex flex-col">
+<span class="text-outline uppercase">Total Authorized Amount</span>
+<span class="font-label-data-lg text-label-data-lg text-primary-fixed font-bold" id="modal-total-amt">₹206.50</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="text-outline uppercase">Slot Allocation</span>
+<span class="text-primary font-bold">Nexus AeroPark • Bay B1-08</span>
+</div>
+</div>
+<!-- Payment Method Selectors -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-data-sm text-label-data-sm text-on-surface-variant uppercase tracking-wider">Select Security Protocol</label>
+<!-- Method 1: FASTag (Selected) -->
+<label class="p-space-sm bg-surface-container-high rounded-lg cursor-pointer flex items-center justify-between shadow-[0_0_12px_rgba(0,251,251,0.2)] transition-all">
+<div class="flex items-center gap-space-sm">
+<input checked="" class="w-4 h-4 accent-primary-container" name="pay-method" type="radio">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-data-md text-label-data-md text-primary font-bold">FASTag Auto-Debit</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed bg-surface-container-lowest px-1.5 py-0.5 rounded font-bold">RECOMMENDED</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Instant gate lift via RFID barrier reader • Fast checkout</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">toll</span>
+</label>
+<!-- Method 2: UPI Dynamic QR -->
+<label class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-high rounded-lg cursor-pointer flex items-center justify-between transition-all">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 accent-primary-container" name="pay-method" type="radio">
+<div class="flex flex-col">
+<span class="font-label-data-md text-label-data-md text-on-surface font-bold">UPI Dynamic Matrix QR</span>
+<span class="font-body-sm text-body-sm text-outline">GPay • PhonePe • Paytm Instant Intent</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">qr_code_2</span>
+</label>
+<!-- Method 3: Tokenized Card -->
+<label class="p-space-sm bg-surface-container-lowest hover:bg-surface-container-high rounded-lg cursor-pointer flex items-center justify-between transition-all">
+<div class="flex items-center gap-space-sm">
+<input class="w-4 h-4 accent-primary-container" name="pay-method" type="radio">
+<div class="flex flex-col">
+<span class="font-label-data-md text-label-data-md text-on-surface font-bold">Credit / Debit CyberVault</span>
+<span class="font-body-sm text-body-sm text-outline">Tokenized PCI-DSS Tier 4 • Apple Pay • RuPay</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[20px]">credit_card</span>
+</label>
+</div>
+<!-- Action Confirmation Buttons -->
+<div class="flex flex-col sm:flex-row gap-space-xs pt-space-xs">
+<button class="w-full sm:w-1/3 py-space-sm bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-data-md text-label-data-md rounded-lg transition-colors" id="btn-cancel-payment" type="button">
+          Cancel / Modify
+        </button>
+<a class="w-full sm:w-2/3 py-space-sm bg-primary-container text-on-primary-container font-label-data-md text-label-data-md font-bold rounded-lg shadow-[0_0_20px_rgba(0,251,251,0.4)] hover:shadow-[0_0_30px_rgba(0,251,251,0.6)] text-center transition-all flex items-center justify-center gap-space-xs" data-path="digital-pass" href="#">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="">Authorize &amp; Generate Pass</span>
+</a>
+</div>
+<div class="flex items-center justify-center gap-space-xs text-outline font-label-data-sm text-label-data-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="">Secured by SmartParking.AI Distributed Vault Protocol v4.2</span>
+</div>
+</div>
+</div>
+<!-- INTERACTION ENGINE (INLINE TACTICAL JAVASCRIPT) -->
+<script>
+    (function initBayViewer() {
+      let currentHours = 4;
+      const hourlyRate = 40;
+      const gatewayFee = 15;
+      let hasEVCharging = true;
+      let selectedSlotName = 'B1-08';
+
+      const durationSlider = document.getElementById('duration-range');
+      const durationLabel = document.getElementById('duration-val-label');
+      const calcHours = document.getElementById('calc-hours');
+      const calcBase = document.getElementById('calc-base');
+      const calcEV = document.getElementById('calc-ev');
+      const calcTax = document.getElementById('calc-tax');
+      const calcTotal = document.getElementById('calc-total');
+      const ctaTotal = document.getElementById('cta-total');
+      const modalTotalAmt = document.getElementById('modal-total-amt');
+      const evCheck = document.getElementById('ev-charging-check');
+      const slotDisplay = document.getElementById('slot-name-display');
+
+      const paymentModal = document.getElementById('payment-modal');
+      const btnOpenPayment = document.getElementById('btn-open-payment');
+      const btnClosePayment = document.getElementById('btn-close-payment');
+      const btnCancelPayment = document.getElementById('btn-cancel-payment');
+      const btnAutoAssign = document.getElementById('btn-auto-assign');
+
+      window.calculateCost = function() {
+        const hours = parseInt(durationSlider.value, 10);
+        currentHours = hours;
+        hasEVCharging = evCheck.checked;
+
+        const baseCost = hours * hourlyRate;
+        const evCost = hasEVCharging ? 120 : 0;
+        const subtotal = baseCost + evCost + gatewayFee;
+        const tax = subtotal * 0.18;
+        const total = subtotal + tax;
+
+        durationLabel.textContent = hours + (hours === 1 ? ' Hour' : ' Hours');
+        calcHours.textContent = hours;
+        calcBase.textContent = '₹' + baseCost.toFixed(2);
+        calcEV.textContent = '₹' + evCost.toFixed(2);
+        calcTax.textContent = '₹' + tax.toFixed(2);
+        calcTotal.textContent = '₹' + total.toFixed(2);
+        ctaTotal.textContent = '₹' + total.toFixed(2);
+        modalTotalAmt.textContent = '₹' + total.toFixed(2);
+      };
+
+      window.setDuration = function(hrs) {
+        durationSlider.value = hrs;
+        window.calculateCost();
+      };
+
+      window.selectSlot = function(name, rate, isEv) {
+        selectedSlotName = name;
+        slotDisplay.textContent = 'Level B1 • Spot ' + name.replace('B1-', '');
+        if (isEv !== undefined) {
+          evCheck.checked = isEv;
+        }
+        window.calculateCost();
+      };
+
+      if (durationSlider) {
+        durationSlider.addEventListener('input', window.calculateCost);
+      }
+
+      if (btnOpenPayment) {
+        btnOpenPayment.addEventListener('click', () => {
+          paymentModal.classList.remove('hidden');
+        });
+      }
+
+      if (btnClosePayment) {
+        btnClosePayment.addEventListener('click', () => {
+          paymentModal.classList.add('hidden');
+        });
+      }
+
+      if (btnCancelPayment) {
+        btnCancelPayment.addEventListener('click', () => {
+          paymentModal.classList.add('hidden');
+        });
+      }
+
+      if (btnAutoAssign) {
+        btnAutoAssign.addEventListener('click', () => {
+          selectSlot('B1-04', 40, false);
+          btnAutoAssign.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+          setTimeout(() => {
+            btnAutoAssign.classList.remove('bg-tertiary-container', 'text-on-tertiary-container');
+          }, 800);
+        });
+      }
+
+      // Camera Perspective toggle simulations
+      const svg = document.getElementById('deck-svg');
+      const btnOrbit = document.getElementById('cam-orbit');
+      const btnBlueprint = document.getElementById('cam-blueprint');
+      const btnReset = document.getElementById('cam-reset');
+
+      if (btnOrbit && svg) {
+        btnOrbit.addEventListener('click', () => {
+          svg.style.transform = 'perspective(900px) rotateX(24deg) scale(0.96)';
+        });
+      }
+      if (btnBlueprint && svg) {
+        btnBlueprint.addEventListener('click', () => {
+          svg.style.transform = 'perspective(0) rotateX(0deg) scale(1)';
+        });
+      }
+      if (btnReset && svg) {
+        btnReset.addEventListener('click', () => {
+          svg.style.transform = 'none';
+        });
+      }
+    })();
+  </script>
+</div></main><nav class="md:hidden fixed bottom-0 inset-x-0 z-50 h-16 bg-surface-container-lowest/90 backdrop-blur-2xl flex items-center justify-around px-margin shadow-[0_-2px_12px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-fixed font-bold shadow-[0_0_16px_rgba(0,251,251,0.4)]"><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="explore-map" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="">Explore</span></a><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="my-passes" href="#"><span class="material-symbols-outlined text-[20px]">confirmation_number</span><span class="">Passes</span></a><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="live-meter" href="#"><span class="material-symbols-outlined text-[20px]">speed</span><span class="">Meter</span></a><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile-telemetry" href="#"><span class="material-symbols-outlined text-[20px]">account_circle</span><span class="">Profile</span></a></nav><footer class="hidden md:block w-full bg-surface-container-lowest py-space-xl shadow-[0_-1px_12px_rgba(0,0,0,0.5)]"><div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md font-label-data-sm text-label-data-sm text-on-surface-variant"><div class="flex items-center gap-space-sm"><span class="font-label-data-md text-label-data-md text-primary font-semibold">SMARTPARKING.AI</span><span class="">•</span><span class="">CYBERNETIC AVIONICS PLATFORM</span></div><div class="flex items-center gap-space-md"><span class="text-tertiary-fixed-dim">SECURE PROTOCOL TLSv1.3</span><span class="">•</span><span class="">FASTAG GRID v4.2</span><span class="">•</span><span class="">© 2025 SPARK-NET CORP</span></div></div></footer>
+
+</body></html>

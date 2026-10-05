@@ -1,70 +1,79 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,800,700,600,500,400&display=swap');
 @import "tailwindcss";
 
-/* ──────────────────────────────────────────────────────────
-   SMART PARKING — Chrome Glass Design System
-   Spatial Slate × Chrome Metallic × Ice-Blue Neon
-   Inspired by Apple Vision Pro & Stripe / Luma Glassmorphism
-   ────────────────────────────────────────────────────────── */
+/* ==========================================================================
+   SMART PARKING — Stitch AeroBay CyberHUD Design System
+   Tactical Cyber-Glass · Avionics HUD · Precision Dark
+   ========================================================================== */
 
 :root {
-  /* Chrome Glass Spatial Palette */
-  --bg-void: #050508;
-  --bg-deep: #0D0D12;
-  --bg-base: #12121A;
-  --bg-elevated: #181824;
-  --surface-glass: rgba(18, 18, 26, 0.65);
-  --surface-glass-border: rgba(160, 160, 176, 0.14);
-  --surface-glass-hover: rgba(28, 28, 40, 0.75);
+  /* Surfaces (Stitch elevation stack) */
+  --bg-void: #0e0e12;
+  --bg-deep: #131317;
+  --bg-base: #1b1b1f;
+  --bg-elevated: #1f1f23;
+  --surface-glass: rgba(19, 19, 23, 0.85);
+  --surface-glass-border: rgba(255, 255, 255, 0.06);
+  --surface-glass-hover: rgba(27, 27, 31, 0.90);
 
-  /* Chrome & Metallic Accents */
-  --chrome-silver: #A0A0B0;
-  --chrome-bright: #F1F5F9;
-  --chrome-dark: #475569;
+  /* Primary — Neon Cyan (HUD active, selections, CTAs) */
+  --primary-fixed: #00fbfb;
+  --primary-fixed-dim: #00dddd;
+  --ice-blue: #00dddd;
+  --ice-blue-bright: #00fbfb;
+  --ice-blue-glow: rgba(0, 251, 251, 0.22);
 
-  /* Neon Luminescence */
-  --ice-blue: #67E8F9;
-  --ice-blue-bright: #A5F3FC;
-  --ice-blue-glow: rgba(103, 232, 249, 0.22);
-  --accent-violet: #818CF8;
-  --accent-rose: #F472B6;
+  /* Secondary — Electric Blue */
+  --accent-blue: #adc6ff;
+  --secondary-container: #0566d9;
+
+  /* Tertiary — Emerald (available, charging) */
+  --tertiary-fixed: #6ffbbe;
+  --tertiary-fixed-dim: #4edea3;
+  --status-available: #10B981;
+
+  /* Neutrals */
+  --chrome-silver: #b9cac9;
+  --chrome-bright: #e5e1e7;
+  --chrome-dark: #839493;
+  --accent-violet: #adc6ff;
+  --accent-rose: #F43F5E;
 
   /* Typography */
-  --text-primary: #F8FAFC;
-  --text-muted: #94A3B8;
-  --text-dim: #64748B;
+  --text-primary: #e5e1e7;
+  --text-muted: #b9cac9;
+  --text-dim: #839493;
 
-  /* System Status */
-  --status-available: #10B981;
-  --status-occupied: #475569;
-  --status-selected: #38BDF8;
+  /* Status */
+  --status-occupied: #F43F5E;
+  --status-selected: #00fbfb;
   --status-pending: #F59E0B;
   --status-cancelled: #F43F5E;
-  --status-confirmed: #10B981;
+  --status-confirmed: #6ffbbe;
 
-  /* Borders & Shadows */
-  --border: rgba(160, 160, 176, 0.12);
+  /* Borders */
+  --border: rgba(58, 74, 73, 0.8);
   --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-glow: rgba(103, 232, 249, 0.35);
-  --border-chrome: rgba(200, 205, 220, 0.22);
+  --border-glow: rgba(0, 251, 251, 0.35);
+  --border-chrome: rgba(185, 202, 201, 0.12);
 
-  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 35px var(--ice-blue-glow);
-  --shadow-chrome: 0 0 20px rgba(160, 160, 176, 0.15);
+  /* Shadows */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(0, 251, 251, 0.25);
+  --shadow-chrome: 0 0 16px rgba(185, 202, 201, 0.1);
 
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  /* Radii (tight avionics geometry) */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-pill: 9999px;
 
-  /* Motion physics */
+  /* Motion */
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ── Tailwind v4 theme mapping ───────────────────────────── */
+/* Tailwind v4 theme tokens */
 @theme inline {
   --color-background: var(--bg-deep);
   --color-foreground: var(--text-primary);
@@ -78,9 +87,11 @@
 
   --color-chrome: var(--chrome-silver);
   --color-chrome-bright: var(--chrome-bright);
-  --color-accent-cyan: var(--ice-blue);
-  --color-accent-blue: var(--accent-violet);
+  --color-accent-cyan: var(--primary-fixed);
+  --color-accent-cyan-dim: var(--primary-fixed-dim);
+  --color-accent-blue: var(--accent-blue);
   --color-accent-rose: var(--accent-rose);
+  --color-accent-emerald: var(--tertiary-fixed);
 
   --color-status-available: var(--status-available);
   --color-status-occupied: var(--status-occupied);
@@ -91,31 +102,37 @@
 
   --color-border: var(--border);
 
-  --font-heading: "Satoshi", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-sans: "Satoshi", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-heading: var(--font-space-grotesk), "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
 
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 }
 
-/* ── Base ────────────────────────────────────────────────── */
-* {
-  box-sizing: border-box;
-}
+/* Base reset */
+* { box-sizing: border-box; }
 
 html, body {
-  background-color: var(--bg-void);
+  background-color: var(--bg-deep);
   color: var(--text-primary);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  overscroll-behavior: none;
 }
 
-/* ── Aurora Mesh Dynamic Background ──────────────────────── */
+/* Hide scrollbars (Stitch spec) */
+::-webkit-scrollbar { display: none; }
+* { scrollbar-width: none; }
+
+/* ==========================================================================
+   Aurora Mesh Dynamic Background
+   ========================================================================== */
+
 .aurora-container {
   position: fixed;
   inset: 0;
@@ -131,7 +148,7 @@ html, body {
   width: 65vw;
   height: 65vh;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(103, 232, 249, 0.12) 0%, rgba(103, 232, 249, 0) 70%);
+  background: radial-gradient(circle at center, rgba(0, 251, 251, 0.08) 0%, rgba(0, 221, 221, 0) 70%);
   filter: blur(90px);
   animation: aurora-float-1 22s ease-in-out infinite alternate;
 }
@@ -143,7 +160,7 @@ html, body {
   width: 60vw;
   height: 60vh;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(129, 140, 248, 0.10) 0%, rgba(129, 140, 248, 0) 70%);
+  background: radial-gradient(circle at center, rgba(111, 251, 190, 0.06) 0%, rgba(78, 222, 163, 0) 70%);
   filter: blur(100px);
   animation: aurora-float-2 28s ease-in-out infinite alternate;
 }
@@ -155,7 +172,7 @@ html, body {
   width: 55vw;
   height: 55vh;
   border-radius: 50%;
-  background: radial-gradient(circle at center, rgba(244, 114, 182, 0.07) 0%, rgba(244, 114, 182, 0) 70%);
+  background: radial-gradient(circle at center, rgba(5, 102, 217, 0.07) 0%, rgba(173, 198, 255, 0) 70%);
   filter: blur(90px);
   animation: aurora-float-3 25s ease-in-out infinite alternate;
 }
@@ -165,98 +182,104 @@ html, body {
   50% { transform: translate(6vw, 8vh) scale(1.1); }
   100% { transform: translate(-4vw, 4vh) scale(0.95); }
 }
-
 @keyframes aurora-float-2 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(-8vw, -6vh) scale(1.15); }
   100% { transform: translate(5vw, 7vh) scale(0.9); }
 }
-
 @keyframes aurora-float-3 {
   0% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(7vw, -5vh) scale(1.05); }
   100% { transform: translate(-5vw, 6vh) scale(1); }
 }
 
-/* ── Subtle Micro Grid Texture ───────────────────────────── */
+/* ==========================================================================
+   Stitch Tactical Micro Grid
+   ========================================================================== */
+
 .bg-spatial-grid {
   background-image:
-    linear-gradient(rgba(160, 160, 176, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(160, 160, 176, 0.035) 1px, transparent 1px);
+    linear-gradient(rgba(0, 251, 251, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 251, 251, 0.06) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
-/* ── Chrome Glass Surfaces ───────────────────────────────── */
+/* ==========================================================================
+   Cockpit Glass Surfaces
+   ========================================================================== */
+
 .glass {
-  background: var(--surface-glass);
-  backdrop-filter: blur(24px) saturate(190%);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  border: 1px solid var(--surface-glass-border);
+  background: rgba(27, 27, 31, 0.85);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-glass);
 }
 
 .glass-elevated {
-  background: rgba(24, 24, 36, 0.75);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
-  border: 1px solid rgba(160, 160, 176, 0.18);
+  background: rgba(18, 18, 23, 0.90);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%);
   border-radius: var(--radius-lg);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .glass-pill {
-  background: rgba(18, 18, 26, 0.75);
+  background: rgba(19, 19, 23, 0.80);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(160, 160, 176, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: var(--radius-pill);
 }
 
-/* ── 3D Card Perspective & Flip Utilities ────────────────── */
-.perspective-1000 {
-  perspective: 1000px;
-}
+/* ==========================================================================
+   3D Card Perspective & Flip Utilities
+   ========================================================================== */
 
-.perspective-1200 {
-  perspective: 1200px;
-}
-
-.preserve-3d {
-  transform-style: preserve-3d;
-}
-
+.perspective-1000 { perspective: 1000px; }
+.perspective-1200 { perspective: 1200px; }
+.preserve-3d { transform-style: preserve-3d; }
 .backface-hidden {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
+.rotate-y-180 { transform: rotateY(180deg); }
 
-.rotate-y-180 {
-  transform: rotateY(180deg);
-}
+/* ==========================================================================
+   HUD Text Utilities
+   ========================================================================== */
 
-/* ── Chrome Gradient Text ────────────────────────────────── */
 .text-chrome {
-  background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 45%, #94A3B8 100%);
+  background: linear-gradient(135deg, #e5e1e7 0%, #b9cac9 50%, #839493 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-ice {
-  background: linear-gradient(135deg, #FFFFFF 0%, #A5F3FC 40%, #67E8F9 100%);
+  background: linear-gradient(135deg, #FFFFFF 0%, #00fbfb 60%, #00dddd 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-glow {
-  text-shadow: 0 0 25px rgba(103, 232, 249, 0.4);
+  text-shadow: 0 0 20px rgba(0, 251, 251, 0.5), 0 0 40px rgba(0, 251, 251, 0.25);
 }
 
-/* ── Neon / Chrome Borders & Glows ───────────────────────── */
+/* ==========================================================================
+   Neon / Tactical Glows
+   ========================================================================== */
+
 .neon-glow-cyan {
-  box-shadow: 0 0 25px rgba(103, 232, 249, 0.18), inset 0 0 15px rgba(103, 232, 249, 0.06);
+  box-shadow: 0 0 12px rgba(0, 251, 251, 0.25), inset 0 0 8px rgba(0, 251, 251, 0.10);
+}
+
+.neon-glow-cyan-strong {
+  box-shadow: 0 0 20px rgba(0, 251, 251, 0.4), 0 0 40px rgba(0, 251, 251, 0.15);
 }
 
 .neon-border {
@@ -264,11 +287,41 @@ html, body {
 }
 
 .chrome-border-glow {
-  border: 1px solid rgba(160, 160, 176, 0.3);
-  box-shadow: 0 0 20px rgba(160, 160, 176, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(185, 202, 201, 0.2);
+  box-shadow: 0 0 16px rgba(185, 202, 201, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }
 
-/* ── Shimmer & Sweep ─────────────────────────────────────── */
+/* ==========================================================================
+   Stitch Animations
+   ========================================================================== */
+
+/* Bay breathing glow (selected state) */
+@keyframes bay-breathe {
+  0%, 100% { box-shadow: 0 0 12px rgba(0,251,251,0.25), inset 0 0 8px rgba(0,251,251,0.10); }
+  50%       { box-shadow: 0 0 28px rgba(0,251,251,0.55), inset 0 0 16px rgba(0,251,251,0.22); }
+}
+
+.bay-selected {
+  border-color: #00fbfb !important;
+  animation: bay-breathe 2s ease-in-out infinite;
+}
+
+/* FASTag scan-line */
+@keyframes scan-line {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+.scan-line::after {
+  content: '';
+  position: absolute;
+  inset-x: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0,251,251,0.7), transparent);
+  animation: scan-line 1.8s linear infinite;
+}
+
+/* Shimmer sweep */
 @keyframes shimmer-sweep {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
@@ -281,17 +334,17 @@ html, body {
   transform: translateX(-100%);
   background-image: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0,
-    rgba(255, 255, 255, 0.08) 40%,
-    rgba(103, 232, 249, 0.18) 50%,
-    rgba(255, 255, 255, 0.08) 60%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(255,255,255,0) 0,
+    rgba(255,255,255,0.06) 40%,
+    rgba(0,251,251,0.15) 50%,
+    rgba(255,255,255,0.06) 60%,
+    rgba(255,255,255,0) 100%
   );
   animation: shimmer-sweep 3s infinite;
   pointer-events: none;
 }
 
-/* ── Floating Particle Field Animation ───────────────────── */
+/* Particle field */
 @keyframes particle-drift {
   0% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
   50% { transform: translateY(-40px) rotate(180deg); opacity: 0.7; }
@@ -305,71 +358,60 @@ html, body {
   animation: particle-drift infinite ease-in-out;
 }
 
-/* ── HUD Label ───────────────────────────────────────────── */
+/* ==========================================================================
+   HUD Label (JetBrains Mono — avionics data style)
+   ========================================================================== */
+
 .hud-label {
-  font-family: var(--font-heading);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-weight: 500;
   font-size: 11px;
-  letter-spacing: 1.4px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--chrome-silver);
 }
 
-/* ── Leaflet Dark Map Overrides ──────────────────────────── */
+/* ==========================================================================
+   Leaflet Dark Map Overrides (Stitch palette)
+   ========================================================================== */
+
 .leaflet-popup-content-wrapper {
-  background: rgba(15, 15, 22, 0.95) !important;
-  border: 1px solid rgba(103, 232, 249, 0.3) !important;
+  background: rgba(14, 14, 18, 0.97) !important;
+  border: 1px solid rgba(0, 251, 251, 0.30) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.8) !important;
-  color: #F8FAFC !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.85) !important;
+  color: #e5e1e7 !important;
 }
 .leaflet-popup-tip {
-  background: rgba(15, 15, 22, 0.95) !important;
-  border: 1px solid rgba(103, 232, 249, 0.3) !important;
+  background: rgba(14, 14, 18, 0.97) !important;
+  border: 1px solid rgba(0, 251, 251, 0.25) !important;
 }
 .leaflet-container {
-  background: #050508 !important;
-  font-family: inherit !important;
+  background: #0e0e12 !important;
+  font-family: var(--font-mono) !important;
 }
 .leaflet-control-zoom a {
-  background: rgba(18, 18, 26, 0.85) !important;
-  color: #67E8F9 !important;
-  border-color: rgba(160, 160, 176, 0.2) !important;
+  background: rgba(19, 19, 23, 0.90) !important;
+  color: #00fbfb !important;
+  border-color: rgba(58, 74, 73, 0.6) !important;
   backdrop-filter: blur(10px) !important;
 }
 .leaflet-control-zoom a:hover {
-  background: rgba(30, 30, 42, 0.95) !important;
+  background: rgba(27, 27, 31, 0.95) !important;
   color: #FFFFFF !important;
 }
 
-/* ── Scrollbars ──────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--bg-void);
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(160, 160, 176, 0.2);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(103, 232, 249, 0.4);
-}
+/* ==========================================================================
+   Focus rings
+   ========================================================================== */
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* ── Focus rings ─────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--ice-blue);
+  outline: 2px solid var(--primary-fixed);
   outline-offset: 2px;
 }
+
+/* No-scrollbar utility */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

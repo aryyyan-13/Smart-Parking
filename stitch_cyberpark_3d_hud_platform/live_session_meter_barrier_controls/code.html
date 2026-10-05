@@ -1,0 +1,560 @@
+<!DOCTYPE html><html class="dark" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_standard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-secondary-fixed-variant":"#004395","surface-container-low":"#1b1b1f","inverse-on-surface":"#303034","on-tertiary-fixed":"#002113","on-secondary-fixed":"#001a42","background":"#131317","secondary":"#adc6ff","on-primary-container":"#007070","on-primary-fixed-variant":"#004f4f","error":"#ffb4ab","tertiary-fixed-dim":"#4edea3","inverse-primary":"#006a6a","surface-bright":"#39393d","inverse-surface":"#e5e1e7","surface-container-lowest":"#0e0e12","on-tertiary-container":"#00734e","surface-dim":"#131317","primary":"#ffffff","tertiary":"#ffffff","surface-container-high":"#2a292e","surface-tint":"#00dddd","primary-container":"#00fbfb","tertiary-container":"#6ffbbe","error-container":"#93000a","on-background":"#e5e1e7","outline":"#839493","on-primary-fixed":"#002020","on-secondary-container":"#e6ecff","secondary-fixed":"#d8e2ff","outline-variant":"#3a4a49","surface":"#131317","on-primary":"#003737","surface-container":"#1f1f23","on-error-container":"#ffdad6","surface-container-highest":"#353439","on-secondary":"#002e6a","on-error":"#690005","primary-fixed":"#00fbfb","secondary-container":"#0566d9","on-tertiary-fixed-variant":"#005236","on-surface":"#e5e1e7","secondary-fixed-dim":"#adc6ff","on-surface-variant":"#b9cac9","surface-variant":"#353439","tertiary-fixed":"#6ffbbe","primary-fixed-dim":"#00dddd","on-tertiary":"#003824"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-xl":"2rem","margin-tablet":"1.5rem","margin":"1rem","space-sm":"0.5rem","space-md":"1rem","space-lg":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","gutter-desktop":"1.5rem"},"fontFamily":{"headline-md":["Space Grotesk"],"label-data-lg":["JetBrains Mono"],"headline-lg-mobile":["Space Grotesk"],"body-sm":["Inter"],"body-md":["Inter"],"label-data-md":["JetBrains Mono"],"headline-lg":["Space Grotesk"],"display-hero-mobile":["Space Grotesk"],"body-lg":["Inter"],"label-data-sm":["JetBrains Mono"],"display-hero":["Space Grotesk"],"headline-sm":["Space Grotesk"]},"fontSize":{"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-data-lg":["16px",{"lineHeight":"20px","letterSpacing":"0.02em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"label-data-md":["13px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"display-hero-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-data-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.06em","fontWeight":"400"}],"display-hero":["48px",{"lineHeight":"56px","letterSpacing":"-0.03em","fontWeight":"700"}],"headline-sm":["20px",{"lineHeight":"28px","fontWeight":"500"}]}}}};</script></head><body class="bg-surface text-on-surface font-body-md text-body-md min-h-screen selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 inset-x-0 z-50 bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-20 w-full px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><img alt="SmartParking.AI Pulsing Radar Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA535wc6qgLP3U06Nul8jWNMFGCXl59RAxwYquREjQdrP8OM2301GXTxYeJTfb4vT-d7t_s3yg_qGR2UWJQ6E6wXTxOx4mKRkVsqlx17_6o6wTfkhZtdqs8IXu-yfxiReF5rqxk_whKEXSaYoTtSnl5C5nlP45G8HltoGSWeEWiimLqfoh-xOtiGQ8-aXSVolsr_MFCeXQQIrMvO4mTYImicWaLsGHsdYz6sIwRJ_cnzSU2zvaSwaIF2Q"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-primary tracking-tight font-bold">SmartParking<span class="text-primary-fixed">.AI</span></span><div class="flex items-center gap-space-xs"><span class="inline-block w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_8px_rgba(111,251,190,0.8)] animate-pulse"></span><span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim tracking-wider uppercase">ONLINE // SATELLITE HUD v2.4</span></div></div></div><nav class="hidden xl:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary-fixed font-bold rounded-lg shadow-[0_0_12px_rgba(0,251,251,0.25)]"><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="explore-map" href="#">Explore &amp; Map</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="3d-garage-bay" href="#">3D Garage Bay</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="digital-pass" href="#">Digital Pass</a><a aria-current="page" class="px-space-sm py-space-xs transition-all bg-surface-container-high text-primary-fixed font-bold rounded-lg shadow-[0_0_12px_rgba(0,251,251,0.25)]" data-path="live-meter" href="#">Live Meter</a><a class="px-space-sm py-space-xs font-label-data-md text-label-data-md text-on-surface-variant hover:text-on-surface transition-all" data-path="my-passes" href="#">My Passes</a></nav></div><div class="hidden md:flex items-center flex-1 max-w-md mx-space-md"><div class="w-full flex items-center gap-space-xs px-space-md py-space-xs bg-surface-container-lowest/90 rounded-full shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] focus-within:shadow-[0_0_12px_rgba(0,251,251,0.35)] transition-all"><span class="material-symbols-outlined text-outline text-[18px]">radar</span><input class="w-full bg-transparent font-label-data-sm text-label-data-sm text-on-surface placeholder:text-outline focus:outline-none" placeholder="Search airport hubs, cyber towers, fast chargers... (Press /)" type="text"><kbd class="font-label-data-sm text-label-data-sm bg-surface-container-high text-on-surface-variant px-space-xs py-0.5 rounded shadow-[0_0_4px_rgba(0,0,0,0.5)]">/</kbd></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden sm:flex items-center gap-space-xs bg-surface-container-low px-space-sm py-space-xs rounded-lg"><span class="material-symbols-outlined text-primary-fixed-dim text-[16px]">currency_exchange</span><select class="bg-transparent font-label-data-sm text-label-data-sm text-primary-fixed cursor-pointer focus:outline-none"><option class="bg-surface-container-low text-on-surface" value="INR">INR (₹)</option><option class="bg-surface-container-low text-on-surface" value="USD">USD ($)</option><option class="bg-surface-container-low text-on-surface" value="EUR">EUR (€)</option><option class="bg-surface-container-low text-on-surface" value="GBP">GBP (£)</option></select></div><button class="hidden lg:flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low text-primary-fixed font-label-data-md text-label-data-md shadow-[0_0_12px_rgba(0,251,251,0.25)] hover:bg-surface-container-high hover:text-primary transition-all" type="button"><span class="material-symbols-outlined text-[16px]">add_circle</span><span class="">+ Host a Spot</span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="hidden md:flex flex-col text-right"><span class="font-label-data-sm text-label-data-sm text-primary-fixed font-semibold tracking-wider">#IND-9021</span><span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">FASTag VIP</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-20 bg-background min-h-[calc(100vh-5rem)] pb-24 md:pb-0"><div class="flex flex-col w-full">
+<!-- Live Telemetry Top Ticker -->
+<div class="w-full bg-surface-container-lowest px-margin md:px-margin-desktop py-space-sm flex flex-wrap items-center justify-between gap-space-sm shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-fixed shadow-[0_0_10px_rgba(0,251,251,0.8)] animate-ping"></span>
+<span class="font-label-data-md text-label-data-md text-primary-fixed font-bold tracking-wider">LIVE ACTIVE SESSION // NEXUS AEROPARK BAY B1-08</span>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs bg-surface-container-low px-space-sm py-0.5 rounded">
+<span class="material-symbols-outlined text-tertiary-fixed text-[16px]">sensors</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed">Ultrasonic Vehicle In-Bay: CONFIRMED</span>
+</div>
+<div class="hidden sm:flex items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant">
+<span class="">GATE RF-TAG:</span>
+<span class="text-secondary font-mono">#FT-IND-88429</span>
+</div>
+</div>
+</div>
+<!-- Main Cockpit Viewport -->
+<div class="w-full px-margin md:px-margin-desktop py-space-lg max-w-7xl mx-auto flex flex-col gap-space-xl">
+<!-- Top Visual Cockpit Grid: Circular Gauge & Dynamic Billing Ticker -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-stretch">
+<!-- Core Telemetry Center (7 cols) -->
+<div class="lg:col-span-7 bg-surface-container-low/80 backdrop-blur-xl rounded-xl p-space-lg md:p-space-xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col justify-between relative overflow-hidden"><div class="absolute -top-24 -left-24 w-64 h-64 bg-primary-fixed/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-wrap items-center justify-between mb-space-md gap-space-xs relative z-10">
+  <div class="flex items-center gap-space-xs">
+    <span class="material-symbols-outlined text-primary-fixed text-[20px]">grid_view</span>
+    <span class="font-label-data-md text-label-data-md text-primary tracking-wider uppercase font-semibold">Multi-Bay Fleet Occupancy HUD</span>
+    <span class="bg-surface-container-high text-primary-fixed font-mono text-xs px-2 py-0.5 rounded font-bold ml-1">4 ACTIVE BAYS</span>
+  </div>
+  <div class="flex items-center gap-space-xs">
+    <span class="font-label-data-sm text-label-data-sm bg-surface-container-high text-tertiary-fixed px-space-sm py-1 rounded flex items-center gap-1">
+      <span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed animate-ping"></span>
+      HUD LINK STABLE • 12ms
+    </span>
+  </div>
+</div>
+
+<!-- Multi-Slot Dedicated Active Timer Grid (4 Slots) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md relative z-10">
+  <!-- Slot 1: Primary Bay B1-08 -->
+  <div class="bg-surface-container-lowest/90 border border-primary-fixed/40 rounded-xl p-space-md shadow-[0_0_16px_rgba(0,251,251,0.2)] flex flex-col justify-between relative overflow-hidden">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-primary-fixed shadow-[0_0_8px_rgba(0,251,251,0.8)] animate-pulse"></span>
+        <span class="font-label-data-md text-label-data-md text-primary-fixed font-bold tracking-wider">BAY B1-08</span>
+        <span class="bg-primary-fixed text-on-primary-fixed text-[9px] font-mono px-1 rounded font-bold">PRIMARY</span>
+      </div>
+      <span class="font-label-data-sm text-label-data-sm text-secondary font-mono">TS-08-EV-9021</span>
+    </div>
+
+    <!-- Compact Dial & Metrics -->
+    <div class="flex items-center justify-around my-space-sm gap-space-xs">
+      <!-- Compact Radial Dial (108px) -->
+      <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+          <circle class="text-surface-container-highest/60" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="6"></circle>
+          <circle class="text-outline-variant" cx="50" cy="50" fill="transparent" r="33" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1.5"></circle>
+          <circle class="text-primary-fixed drop-shadow-[0_0_10px_rgba(0,251,251,0.8)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="110" stroke-linecap="round" stroke-width="6"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span class="font-label-data-sm text-[9px] text-outline uppercase tracking-wider">ELAPSED</span>
+          <span class="font-label-data-md text-label-data-md text-white font-bold font-mono tracking-tight drop-shadow-[0_0_8px_rgba(0,251,251,0.5)]" id="elapsedCounter">02h:14m:35s</span>
+          <span class="text-[9px] font-mono text-tertiary-fixed font-semibold mt-0.5">56% CAP</span>
+        </div>
+      </div>
+      <!-- Timing Details -->
+      <div class="flex flex-col gap-1 text-right">
+        <div class="bg-surface-container-high/80 px-2 py-1 rounded text-right">
+          <div class="font-label-data-sm text-[10px] text-outline">Remaining</div>
+          <div class="font-label-data-sm text-label-data-sm text-primary-fixed font-bold font-mono">01h : 45m</div>
+        </div>
+        <div class="text-[10px] font-mono text-on-surface-variant">Limit: 18:02 IST</div>
+        <div class="text-[10px] font-mono text-tertiary-fixed">Grace: 18:17 IST</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center justify-between pt-space-xs border-t border-surface-container-high gap-1.5">
+      <span class="font-label-data-sm text-[11px] text-tertiary-fixed font-semibold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px]">ev_station</span> CHARGING 82%
+      </span>
+      <div class="flex items-center gap-1">
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary-fixed text-[11px] font-mono font-bold transition-all" onclick="extendTime(30, 20)">+30m</button>
+        <button class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed text-[11px] font-mono font-bold transition-all shadow-[0_0_8px_rgba(0,251,251,0.4)]" onclick="openExitModal()">Release</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slot 2: Bay B1-09 -->
+  <div class="bg-surface-container-lowest/70 border border-surface-container-high rounded-xl p-space-md flex flex-col justify-between hover:border-outline transition-all">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-pulse"></span>
+        <span class="font-label-data-md text-label-data-md text-primary font-bold tracking-wider">BAY B1-09</span>
+      </div>
+      <span class="font-label-data-sm text-label-data-sm text-secondary font-mono">MH-02-EQ-4410</span>
+    </div>
+
+    <!-- Compact Dial & Metrics -->
+    <div class="flex items-center justify-around my-space-sm gap-space-xs">
+      <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+          <circle class="text-surface-container-highest/60" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="6"></circle>
+          <circle class="text-outline-variant" cx="50" cy="50" fill="transparent" r="33" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1.5"></circle>
+          <circle class="text-secondary drop-shadow-[0_0_8px_rgba(173,198,255,0.6)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="175" stroke-linecap="round" stroke-width="6"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span class="font-label-data-sm text-[9px] text-outline uppercase tracking-wider">ELAPSED</span>
+          <span class="font-label-data-md text-label-data-md text-white font-bold font-mono tracking-tight">01h:05m:18s</span>
+          <span class="text-[9px] font-mono text-secondary font-semibold mt-0.5">30% CAP</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1 text-right">
+        <div class="bg-surface-container-high/80 px-2 py-1 rounded text-right">
+          <div class="font-label-data-sm text-[10px] text-outline">Remaining</div>
+          <div class="font-label-data-sm text-label-data-sm text-secondary font-bold font-mono">02h : 54m</div>
+        </div>
+        <div class="text-[10px] font-mono text-on-surface-variant">Limit: 19:15 IST</div>
+        <div class="text-[10px] font-mono text-tertiary-fixed">Grace: 19:30 IST</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center justify-between pt-space-xs border-t border-surface-container-high gap-1.5">
+      <span class="font-label-data-sm text-[11px] text-on-surface-variant font-semibold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px] text-primary-fixed">local_parking</span> ACTIVE SESSION
+      </span>
+      <div class="flex items-center gap-1">
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary-fixed text-[11px] font-mono font-bold transition-all" onclick="extendTime(30, 20)">+30m</button>
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-[11px] font-mono transition-all">Inspect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slot 3: Bay B1-04 -->
+  <div class="bg-surface-container-lowest/70 border border-surface-container-high rounded-xl p-space-md flex flex-col justify-between hover:border-outline transition-all">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+        <span class="font-label-data-md text-label-data-md text-primary font-bold tracking-wider">BAY B1-04</span>
+      </div>
+      <span class="font-label-data-sm text-label-data-sm text-secondary font-mono">KA-05-MJ-3190</span>
+    </div>
+
+    <!-- Compact Dial & Metrics -->
+    <div class="flex items-center justify-around my-space-sm gap-space-xs">
+      <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+          <circle class="text-surface-container-highest/60" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="6"></circle>
+          <circle class="text-outline-variant" cx="50" cy="50" fill="transparent" r="33" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1.5"></circle>
+          <circle class="text-error drop-shadow-[0_0_8px_rgba(255,180,171,0.6)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="25" stroke-linecap="round" stroke-width="6"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span class="font-label-data-sm text-[9px] text-error uppercase tracking-wider">OVERSTAY</span>
+          <span class="font-label-data-md text-label-data-md text-error font-bold font-mono tracking-tight">03h:52m:10s</span>
+          <span class="text-[9px] font-mono text-error font-semibold mt-0.5">95% CAP</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1 text-right">
+        <div class="bg-surface-container-high/80 px-2 py-1 rounded text-right">
+          <div class="font-label-data-sm text-[10px] text-error">Remaining</div>
+          <div class="font-label-data-sm text-label-data-sm text-error font-bold font-mono">00h : 07m</div>
+        </div>
+        <div class="text-[10px] font-mono text-on-surface-variant">Limit: 16:30 IST</div>
+        <div class="text-[10px] font-mono text-error font-bold">Surge imminent</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center justify-between pt-space-xs border-t border-surface-container-high gap-1.5">
+      <span class="font-label-data-sm text-[11px] text-error font-semibold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px]">warning</span> GRACE BUFFER
+      </span>
+      <div class="flex items-center gap-1">
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary-fixed text-[11px] font-mono font-bold transition-all" onclick="extendTime(60, 40)">+1h SOS</button>
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-[11px] font-mono transition-all">Inspect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slot 4: Bay B1-12 -->
+  <div class="bg-surface-container-lowest/70 border border-surface-container-high rounded-xl p-space-md flex flex-col justify-between hover:border-outline transition-all">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+        <span class="font-label-data-md text-label-data-md text-primary font-bold tracking-wider">BAY B1-12</span>
+      </div>
+      <span class="font-label-data-sm text-label-data-sm text-secondary font-mono">DL-01-AB-8824</span>
+    </div>
+
+    <!-- Compact Dial & Metrics -->
+    <div class="flex items-center justify-around my-space-sm gap-space-xs">
+      <div class="relative w-28 h-28 shrink-0 flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90 transform" viewBox="0 0 100 100">
+          <circle class="text-surface-container-highest/60" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="6"></circle>
+          <circle class="text-outline-variant" cx="50" cy="50" fill="transparent" r="33" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1.5"></circle>
+          <circle class="text-tertiary-fixed drop-shadow-[0_0_8px_rgba(111,251,190,0.6)]" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="210" stroke-linecap="round" stroke-width="6"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+          <span class="font-label-data-sm text-[9px] text-outline uppercase tracking-wider">ELAPSED</span>
+          <span class="font-label-data-md text-label-data-md text-white font-bold font-mono tracking-tight">00h:42m:15s</span>
+          <span class="text-[9px] font-mono text-tertiary-fixed font-semibold mt-0.5">18% CAP</span>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1 text-right">
+        <div class="bg-surface-container-high/80 px-2 py-1 rounded text-right">
+          <div class="font-label-data-sm text-[10px] text-outline">Remaining</div>
+          <div class="font-label-data-sm text-label-data-sm text-tertiary-fixed font-bold font-mono">03h : 17m</div>
+        </div>
+        <div class="text-[10px] font-mono text-on-surface-variant">Limit: 20:00 IST</div>
+        <div class="text-[10px] font-mono text-tertiary-fixed">Grace: 20:15 IST</div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center justify-between pt-space-xs border-t border-surface-container-high gap-1.5">
+      <span class="font-label-data-sm text-[11px] text-tertiary-fixed font-semibold flex items-center gap-1">
+        <span class="material-symbols-outlined text-[13px]">check_circle</span> ACTIVE SESSION
+      </span>
+      <div class="flex items-center gap-1">
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-primary-fixed text-[11px] font-mono font-bold transition-all" onclick="extendTime(30, 20)">+30m</button>
+        <button class="px-2 py-0.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-on-surface text-[11px] font-mono transition-all">Inspect</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overstay Shield Footer Strip -->
+<div class="mt-space-md bg-surface-container-lowest/90 p-space-sm rounded flex items-center justify-between relative z-10">
+  <div class="flex items-center gap-space-xs">
+    <span class="material-symbols-outlined text-tertiary-fixed-dim text-[18px]">verified_user</span>
+    <span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim">Overstay Shield ACTIVE across 4 slots: 15-min complimentary buffer before surge rates apply.</span>
+  </div>
+  <span class="hidden sm:inline-block font-label-data-sm text-label-data-sm text-outline font-mono">MULTI-BAY POLICY #OS-99</span>
+</div></div>
+<!-- Real-time Micro-Billing & Quick Extensions (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- Live Micro-Billing Counter -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl rounded-xl p-space-lg shadow-[0_8px_32px_rgba(0,0,0,0.7)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-data-md text-label-data-md text-on-surface-variant font-bold uppercase tracking-wider">Dynamic Accrued Fee</span>
+<span class="font-label-data-sm text-label-data-sm bg-secondary-container text-on-secondary-container px-space-xs py-0.5 rounded font-bold">AUTO-FASTag</span>
+</div>
+<div class="my-space-md">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary-fixed drop-shadow-[0_0_16px_rgba(0,251,251,0.5)] font-mono font-bold" id="liveFee">₹196.56</span>
+<span class="font-label-data-sm text-label-data-sm text-tertiary-fixed-dim animate-pulse">● Ticking (₹0.024/sec)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Directly debited on exit sensor scan via FastTag RFID or Wallet Balance.</p>
+</div>
+<!-- Fee Breakdown Table -->
+<div class="space-y-space-xs bg-surface-container-lowest p-space-sm rounded text-body-sm font-label-data-sm">
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Base Slot Tier (Aeropark B1)</span>
+<span class="text-primary font-mono">₹140.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Ultra-Fast EV Juicing (21.4 kWh)</span>
+<span class="text-primary font-mono">₹46.22</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span class="">Airport Grid Surveillance Fee</span>
+<span class="text-primary font-mono">₹10.20</span>
+</div>
+<div class="flex justify-between text-tertiary-fixed font-bold pt-1 border-t border-surface-container-high">
+<span class="">FastTag Automated Discount</span>
+<span class="font-mono leading-none">- ₹0.00 (Zero Surge)</span>
+</div>
+</div>
+</div>
+<!-- Quick Time Extensions Card -->
+<div class="bg-surface-container-low/90 backdrop-blur-xl rounded-xl p-space-lg shadow-[0_8px_32px_rgba(0,0,0,0.7)]">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-data-md text-label-data-md text-primary font-bold uppercase tracking-wider">Add Parking Window</span>
+<span class="font-label-data-sm text-label-data-sm text-outline">1-TAP FASTAG PROMPT</span>
+</div>
+<div class="grid grid-cols-3 gap-space-sm">
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all transform active:scale-95 group" onclick="extendTime(30, 20)">
+<span class="font-label-data-md text-label-data-md text-primary font-bold group-hover:text-primary-fixed">+30 Mins</span>
+<span class="font-label-data-sm text-label-data-sm text-outline">₹20</span>
+</button>
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all transform active:scale-95 group" onclick="extendTime(60, 40)">
+<span class="font-label-data-md text-label-data-md text-primary font-bold group-hover:text-primary-fixed">+1 Hour</span>
+<span class="font-label-data-sm text-label-data-sm text-outline">₹40</span>
+</button>
+<button class="flex flex-col items-center justify-center p-space-sm rounded-lg bg-surface-container-high hover:bg-surface-container-highest transition-all transform active:scale-95 group relative overflow-hidden" onclick="extendTime(120, 75)">
+<span class="absolute top-0 right-0 bg-primary-fixed text-on-primary-fixed text-[8px] font-mono px-1 font-bold">HOT</span>
+<span class="font-label-data-md text-label-data-md text-primary-fixed font-bold group-hover:text-white">+2 Hours</span>
+<span class="font-label-data-sm text-label-data-sm text-outline">₹75</span>
+</button>
+</div>
+<!-- Toast Banner Notification container -->
+<div class="hidden mt-space-sm bg-tertiary-container text-on-tertiary-container px-space-sm py-space-xs rounded flex items-center justify-between font-label-data-sm" id="extensionToast">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span id="toastMessage" class="">Extended by 30 mins! FASTag updated.</span>
+</div>
+<button class="font-bold" onclick="this.parentElement.classList.add('hidden')">✕</button>
+</div>
+</div>
+<!-- Core Barrier Release CTA Button -->
+<button class="w-full py-space-md px-space-lg rounded-xl bg-primary-fixed text-on-primary font-label-data-lg text-label-data-lg font-bold flex items-center justify-center gap-space-sm shadow-[0_0_24px_rgba(0,251,251,0.5)] hover:shadow-[0_0_36px_rgba(0,251,251,0.7)] transition-all transform hover:-translate-y-0.5 active:scale-98" onclick="openExitModal()">
+<span class="material-symbols-outlined text-[24px]">lock_open</span>
+<span class="">End Session &amp; Open Exit Barrier</span>
+</button>
+</div>
+</div>
+<!-- Secondary Telemetry Bento: EV Charger Status, Bay Environment, & Emergency Assistance -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg items-stretch">
+<!-- EV Telemetry Card -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.6)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[20px]">ev_station</span>
+<span class="font-label-data-md text-label-data-md text-primary font-bold">EV HyperCharger #08</span>
+</div>
+<span class="font-label-data-sm text-label-data-sm bg-surface-container-highest text-tertiary-fixed px-space-xs py-0.5 rounded">CCS2 ACTIVE</span>
+</div>
+<div class="my-space-md">
+<div class="flex justify-between items-baseline mb-space-xs">
+<span class="font-headline-sm text-headline-sm text-white font-bold font-mono">82%</span>
+<span class="font-label-data-sm text-label-data-sm text-on-surface-variant font-mono">24 mins to full (90% target)</span>
+</div>
+<!-- Charging visual bar -->
+<div class="w-full bg-surface-container-highest h-3 rounded-full overflow-hidden flex relative">
+<div class="bg-gradient-to-r from-secondary to-primary-fixed h-full rounded-full w-[82%] shadow-[0_0_8px_rgba(0,251,251,0.6)]"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant">
+<div class="bg-surface-container-lowest p-space-xs rounded">
+<div class="">Speed:</div>
+<div class="text-primary font-bold font-mono">148 kW DC</div>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded">
+<div class="">Energy Delivered:</div>
+<div class="text-primary font-bold font-mono">21.4 kWh</div>
+</div>
+</div>
+</div>
+<!-- Bay Environmental Telemetry -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.6)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[20px]">thermostat</span>
+<span class="font-label-data-md text-label-data-md text-primary font-bold">Bay Diagnostics</span>
+</div>
+<div class="flex items-center gap-1 font-label-data-sm text-label-data-sm text-tertiary-fixed">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed animate-ping"></span>
+<span class="">4K 60FPS ONLINE</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm my-space-md">
+<div class="bg-surface-container-lowest p-space-sm rounded flex flex-col justify-center">
+<span class="font-label-data-sm text-label-data-sm text-outline">Ambient Temp</span>
+<span class="font-headline-sm text-headline-sm text-primary font-mono font-bold">24.2°C</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">HVAC Optimal</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded flex flex-col justify-center">
+<span class="font-label-data-sm text-label-data-sm text-outline">Air Quality Index</span>
+<span class="font-headline-sm text-headline-sm text-tertiary-fixed font-mono font-bold">18 AQI</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Clean Filtered</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-xs rounded flex items-center justify-between font-label-data-sm text-label-data-sm text-on-surface-variant">
+<span class="truncate">Live CCTV Optical Stream</span>
+<a class="text-primary-fixed hover:underline flex items-center gap-0.5" href="#">
+<span class="">View Feed</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+</div>
+<!-- Security, Valet & Quick Beacon Controls -->
+<div class="bg-surface-container-low/80 backdrop-blur-xl rounded-xl p-space-lg shadow-[0_8px_24px_rgba(0,0,0,0.6)] flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[20px]">shield</span>
+<span class="font-label-data-md text-label-data-md text-primary font-bold">Tactical Assistance</span>
+</div>
+<span class="font-label-data-sm text-label-data-sm text-outline font-mono">SECTOR B-1</span>
+</div>
+<div class="flex flex-col gap-space-xs my-space-sm">
+<button class="w-full py-2 px-space-sm rounded bg-surface-container-high hover:bg-surface-container-highest transition-all flex items-center justify-between font-label-data-sm text-label-data-sm text-on-surface group" id="beaconBtn" onclick="flashBeacon()">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed group-hover:animate-bounce text-[18px]">lightbulb</span>
+<span class="">Find My Car (Beep Bay Lights)</span>
+</div>
+<span class="font-mono text-outline group-hover:text-primary">TRIGGER</span>
+</button>
+<button class="w-full py-2 px-space-sm rounded bg-surface-container-high hover:bg-surface-container-highest transition-all flex items-center justify-between font-label-data-sm text-label-data-sm text-on-surface group" onclick="alert('Valet Concierge dispatched to Bay B1-08 (ETA 2 mins)')">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">support_agent</span>
+<span class="">Request On-Site Valet</span>
+</div>
+<span class="font-mono text-outline group-hover:text-primary">CALL</span>
+</button>
+<button class="w-full py-2 px-space-sm rounded bg-surface-container-high hover:bg-surface-container-highest transition-all flex items-center justify-between font-label-data-sm text-label-data-sm text-error group" onclick="alert('Bay Obstruction incident logged. Security cameras alerted.')">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-error text-[18px]">report_problem</span>
+<span class="">Report Obstruction</span>
+</div>
+<span class="font-mono text-outline group-hover:text-error">FLAG</span>
+</button>
+</div>
+<div class="text-center font-label-data-sm text-label-data-sm text-on-surface-variant">
+          Emergency Dispatch: <span class="text-primary font-mono">+91 1800-419-SPARK</span>
+</div>
+</div>
+</div>
+<!-- Active Vehicle Details & Bay Blueprint Strip -->
+<div class="w-full bg-surface-container-low rounded-xl p-space-md flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-16 h-12 bg-surface-container-lowest rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed text-[32px]">directions_car</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-primary font-bold">CyberCab Fleet / SpaceBlack</span>
+<span class="bg-surface-container-high text-primary-fixed font-mono text-xs px-2 py-0.5 rounded font-bold">TS-08-EV-9021</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Nexus Aeropark Underground Hub • Multi-Storey Level -1 • Row Alpha Bay 08</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm font-label-data-sm text-label-data-sm">
+<div class="text-right">
+<div class="text-outline">FASTag Provider</div>
+<div class="text-tertiary-fixed font-bold font-mono">ICICI AUTOMATED PASS</div>
+</div>
+<span class="material-symbols-outlined text-tertiary-fixed text-[24px]">verified</span>
+</div>
+</div>
+</div>
+<!-- Exit Barrier Modal Simulation -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-surface-container-lowest/80 backdrop-blur-2xl p-margin" id="exitModal">
+<div class="w-full max-w-lg bg-surface-container rounded-xl p-space-xl shadow-[0_16px_64px_rgba(0,251,251,0.2)] flex flex-col gap-space-md relative overflow-hidden">
+<!-- Top Neon Header Ribbon -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-fixed text-[24px]">check_circle</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold">EXIT INITIATED</span>
+</div>
+<button class="text-outline hover:text-white" onclick="closeExitModal()">✕</button>
+</div>
+<!-- Graphic Signal Status -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg text-center flex flex-col items-center justify-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary-fixed text-[48px] animate-bounce">garage</span>
+<span class="font-headline-sm text-headline-sm text-white font-bold">BARRIER ARM LIFT SIGNAL SENT</span>
+<p class="font-label-data-sm text-label-data-sm text-tertiary-fixed">Bay B1-08 to Nexus North Exit 2 is CLEARED for departure.</p>
+</div>
+<!-- Final Receipt Itemization -->
+<div class="space-y-space-xs bg-surface-container-low p-space-md rounded-lg font-label-data-sm text-label-data-sm">
+<div class="flex justify-between text-outline">
+<span class="">Session Duration</span>
+<span class="text-white font-mono">02h : 14m : 32s</span>
+</div>
+<div class="flex justify-between text-outline">
+<span class="">Total Parking Fee</span>
+<span class="text-white font-mono">₹140.00</span>
+</div>
+<div class="flex justify-between text-outline">
+<span class="">FastCharge Juice (21.4 kWh)</span>
+<span class="text-white font-mono">₹46.22</span>
+</div>
+<div class="flex justify-between text-outline">
+<span class="">Airport Access GST (18%)</span>
+<span class="text-white font-mono">₹10.20</span>
+</div>
+<div class="pt-2 border-t border-surface-container-high flex justify-between font-headline-sm text-headline-sm text-primary-fixed font-bold">
+<span class="">TOTAL DEBIT</span>
+<span class="font-mono">₹196.42</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary-fixed font-mono text-xs mt-1">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+<span class="">FASTag Account auto-debited. No physical stop required.</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-space-sm mt-space-xs">
+<button class="flex-1 py-space-sm px-space-md rounded bg-surface-container-high hover:bg-surface-container-highest text-primary font-label-data-md text-label-data-md transition-all flex items-center justify-center gap-space-xs" onclick="downloadReceipt()">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span class="">Download Tax Invoice</span>
+</button>
+<button class="flex-1 py-space-sm px-space-md rounded bg-primary-fixed text-on-primary font-label-data-md text-label-data-md font-bold transition-all flex items-center justify-center gap-space-xs shadow-[0_0_16px_rgba(0,251,251,0.4)]" onclick="closeExitModal()">
+<span class="">Finish &amp; Leave Bay</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Interactive Dashboard Simulation Script -->
+<script>
+    let elapsedSeconds = 8072; // 02h : 14m : 32s
+    let baseRate = 196.42;
+
+    // Real-time ticking stopwatch
+    setInterval(() => {
+      elapsedSeconds++;
+      const hrs = String(Math.floor(elapsedSeconds / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((elapsedSeconds % 3600) / 60)).padStart(2, '0');
+      const secs = String(elapsedSeconds % 60).padStart(2, '0');
+      
+      const counterEl = document.getElementById('elapsedCounter');
+      if (counterEl) {
+        counterEl.innerText = `${hrs}h : ${mins}m : ${secs}s`;
+      }
+
+      // Micro billing ticker
+      baseRate += 0.0004;
+      const feeEl = document.getElementById('liveFee');
+      if (feeEl) {
+        feeEl.innerText = '₹' + baseRate.toFixed(2);
+      }
+    }, 1000);
+
+    // Quick Time Extension Handler
+    function extendTime(minutes, price) {
+      const toast = document.getElementById('extensionToast');
+      const msg = document.getElementById('toastMessage');
+      if (toast && msg) {
+        msg.innerText = `+${minutes} Mins added! (₹${price} FASTag hold confirmed)`;
+        toast.classList.remove('hidden');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+        }, 5000);
+      }
+    }
+
+    // Flashing Bay Beacon Animation
+    function flashBeacon() {
+      const btn = document.getElementById('beaconBtn');
+      if (btn) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span class="text-primary-fixed font-bold animate-ping">⚡ TRANSMITTING PULSE TO BAY B1-08 LEDS...</span>`;
+        setTimeout(() => {
+          btn.innerHTML = `<span class="text-tertiary-fixed font-bold">✓ LIGHTS FLASHING (10s)</span>`;
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+          }, 3000);
+        }, 1500);
+      }
+    }
+
+    // Modal Triggers
+    function openExitModal() {
+      const modal = document.getElementById('exitModal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeExitModal() {
+      const modal = document.getElementById('exitModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function downloadReceipt() {
+      alert('Generating GST Invoice #SPK-AERO-2025-9981.pdf. Sent to registered FASTag email.');
+    }
+  </script>
+</div></main><nav class="md:hidden fixed bottom-0 inset-x-0 z-50 h-16 bg-surface-container-lowest/90 backdrop-blur-2xl flex items-center justify-around px-margin shadow-[0_-2px_12px_rgba(0,0,0,0.6)]" data-active-classes="text-primary-fixed font-bold shadow-[0_0_16px_rgba(0,251,251,0.4)]"><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="explore-map" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span class="">Explore</span></a><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="my-passes" href="#"><span class="material-symbols-outlined text-[20px]">confirmation_number</span><span class="">Passes</span></a><a aria-current="page" class="flex flex-col items-center gap-space-xs transition-colors text-primary-fixed font-bold shadow-[0_0_16px_rgba(0,251,251,0.4)]" data-path="live-meter" href="#"><span class="material-symbols-outlined text-[20px]">speed</span><span class="">Meter</span></a><a class="flex flex-col items-center gap-space-xs font-label-data-sm text-label-data-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="profile-telemetry" href="#"><span class="material-symbols-outlined text-[20px]">account_circle</span><span class="">Profile</span></a></nav><footer class="hidden md:block w-full bg-surface-container-lowest py-space-xl shadow-[0_-1px_12px_rgba(0,0,0,0.5)]"><div class="w-full px-margin-desktop flex flex-col md:flex-row items-center justify-between gap-space-md font-label-data-sm text-label-data-sm text-on-surface-variant"><div class="flex items-center gap-space-sm"><span class="font-label-data-md text-label-data-md text-primary font-semibold">SMARTPARKING.AI</span><span class="">•</span><span class="">CYBERNETIC AVIONICS PLATFORM</span></div><div class="flex items-center gap-space-md"><span class="text-tertiary-fixed-dim">SECURE PROTOCOL TLSv1.3</span><span class="">•</span><span class="">FASTAG GRID v4.2</span><span class="">•</span><span class="">© 2025 SPARK-NET CORP</span></div></div></footer>
+
+</body></html>
