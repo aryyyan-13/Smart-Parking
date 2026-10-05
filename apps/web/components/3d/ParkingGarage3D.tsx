@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Canvas, useFrame, ThreeEvent } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
 import * as THREE from "three";
@@ -100,7 +100,6 @@ function Slot3D({
         color={slot.occupied ? rawColors.dark.textMuted : rawColors.dark.textPrimary}
         anchorX="center"
         anchorY="middle"
-        font="/fonts/Outfit-Variable.ttf"
       >
         {slot.label}
       </Text>
@@ -150,7 +149,7 @@ function FloorLevel({
     <group position={[0, yOffset, 0]}>
       {/* Floor platform */}
       <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[10, 7]} />
+        <planeGeometry args={[20, 15]} />
         <meshStandardMaterial
           color={rawColors.dark.bgBase}
           metalness={0.4}
@@ -161,9 +160,9 @@ function FloorLevel({
       </mesh>
 
       {/* Edge glows */}
-      {[-5, 5].map((x, i) => (
+      {[-10, 10].map((x, i) => (
         <mesh key={`edge-${i}`} position={[x, 0.03, 0]}>
-          <boxGeometry args={[0.02, 0.02, 7]} />
+          <boxGeometry args={[0.02, 0.02, 15]} />
           <meshStandardMaterial
             color={rawColors.dark.accentCyan}
             emissive={rawColors.dark.accentCyan}
@@ -174,11 +173,14 @@ function FloorLevel({
         </mesh>
       ))}
 
-      {/* Slots */}
+      {/* Slots - Grid of 10 columns by 5 rows */}
       {isActive &&
         floor.slots.map((slot, i) => {
-          const row = i < 5 ? -1.5 : 1.5;
-          const col = (i % 5) * 1.9 - 3.8;
+          const colIndex = i % 10;
+          const rowIndex = Math.floor(i / 10);
+          
+          const col = colIndex * 1.8 - 8.1;
+          const row = rowIndex * 2.8 - 5.6;
           return (
             <Slot3D
               key={slot.id}
@@ -191,9 +193,9 @@ function FloorLevel({
         })}
 
       {/* Pillars */}
-      {[-4, 0, 4].map((x, i) => (
-        <mesh key={`pillar-${i}`} position={[x, 0.9, -3.2]}>
-          <boxGeometry args={[0.2, 1.8, 0.2]} />
+      {[-8, -4, 0, 4, 8].map((x, i) => (
+        <mesh key={`pillar-${i}`} position={[x, 0.9, -7]}>
+          <boxGeometry args={[0.3, 1.8, 0.3]} />
           <meshStandardMaterial
             color={rawColors.dark.bgElevated}
             metalness={0.6}
@@ -217,39 +219,41 @@ export default function ParkingGarage3D({
   return (
     <div className="w-full h-full" role="img" aria-label="Interactive 3D parking garage viewer">
       <Canvas
-        camera={{ position: [8, 6, 10], fov: 35 }}
+        camera={{ position: [0, 15, 12], fov: 45 }}
         gl={{ antialias: true, alpha: true }}
         dpr={[1, 2]}
       >
-        <color attach="background" args={[rawColors.dark.bgDeep]} />
-        <fog attach="fog" args={[rawColors.dark.bgDeep, 15, 30]} />
+        <React.Suspense fallback={null}>
+          <color attach="background" args={[rawColors.dark.bgDeep]} />
+          <fog attach="fog" args={[rawColors.dark.bgDeep, 15, 30]} />
 
-        {/* Lighting */}
-        <ambientLight intensity={0.2} />
-        <directionalLight position={[5, 10, 5]} intensity={0.5} color="#E0E0FF" />
-        <pointLight position={[-4, 3, -3]} intensity={0.5} color="#00FFFF" distance={15} />
-        <pointLight position={[4, 2, 4]} intensity={0.3} color="#3B82F6" distance={12} />
+          {/* Lighting */}
+          <ambientLight intensity={0.2} />
+          <directionalLight position={[5, 10, 5]} intensity={0.5} color="#E0E0FF" />
+          <pointLight position={[-4, 3, -3]} intensity={0.5} color="#00FFFF" distance={15} />
+          <pointLight position={[4, 2, 4]} intensity={0.3} color="#3B82F6" distance={12} />
 
-        {/* Floors */}
-        {floors.map((floor, i) => (
-          <FloorLevel
-            key={floor.id}
-            floor={floor}
-            yOffset={i * 2.2}
-            isActive={i === activeFloor}
-            selectedSlot={selectedSlot}
-            onSlotClick={onSlotClick}
+          {/* Floors */}
+          {floors.map((floor, i) => (
+            <FloorLevel
+              key={floor.id}
+              floor={floor}
+              yOffset={i * 2.2}
+              isActive={i === activeFloor}
+              selectedSlot={selectedSlot}
+              onSlotClick={onSlotClick}
+            />
+          ))}
+
+          <OrbitControls
+            enablePan={false}
+            maxPolarAngle={Math.PI / 2.2}
+            minDistance={8}
+            maxDistance={20}
+            autoRotate
+            autoRotateSpeed={0.3}
           />
-        ))}
-
-        <OrbitControls
-          enablePan={false}
-          maxPolarAngle={Math.PI / 2.2}
-          minDistance={8}
-          maxDistance={20}
-          autoRotate
-          autoRotateSpeed={0.3}
-        />
+        </React.Suspense>
       </Canvas>
     </div>
   );

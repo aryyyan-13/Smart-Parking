@@ -19,4 +19,19 @@ export class SearchController {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+
+  static async getById(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const listing = await SearchService.getById(id as string);
+      if (!listing) {
+        res.status(404).json({ error: 'Listing not found' });
+        return;
+      }
+      res.json(listing);
+    } catch (error) {
+      logger.error({ error }, 'Search failed');
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 }

@@ -81,4 +81,44 @@ export class SearchService {
 
     return results;
   }
+
+  static async getById(id: string) {
+    // Validate UUID format before querying Prisma to prevent 500 crash
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(id)) {
+      return null;
+    }
+
+    const listing = await prisma.listing.findUnique({
+      where: { id, status: 'PUBLISHED' },
+      include: {
+        priceRules: true,
+      },
+    });
+
+    if (!listing) return null;
+
+    const basePrice = listing.priceRules[0]?.amount ?? 5000;
+
+    return {
+      id: listing.id,
+      name: listing.title,
+      address: listing.address,
+      lat: Number(listing.latitude),
+      lng: Number(listing.longitude),
+      distance: 0,
+      pricePerHour: basePrice,
+      vehicleType: listing.vehicleType,
+      isEV: true, // Mocked for Phase 1
+      isAccessible: true, // Mocked for Phase 1
+      hasCCTV: true, // Mocked for Phase 1
+      cctvScore: 98,
+      rating: 4.8,
+      totalSpots: 50,
+      availableSpots: 12,
+      densityZone: 'medium',
+      cityId: 'ALL',
+      cityName: 'India',
+    };
+  }
 }

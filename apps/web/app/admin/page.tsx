@@ -19,7 +19,7 @@ import {
 
 /* ── Types ──────────────────────────────────────────────────── */
 
-type ListingStatus = "pending" | "approved" | "rejected";
+type ListingStatus = "DRAFT" | "PUBLISHED" | "UNPUBLISHED" | "DELETED";
 type DisputeStatus = "open" | "resolved" | "refunded";
 
 interface PendingListing {
@@ -42,15 +42,6 @@ interface Dispute {
   submittedAt: string;
   status: DisputeStatus;
 }
-
-/* ── Mock data ──────────────────────────────────────────────── */
-
-const MOCK_LISTINGS: PendingListing[] = [
-  { id: "LST-001", ownerName: "Rahul Mehta", location: "Koramangala 5th Block", city: "Bengaluru", totalSpots: 12, pricePerHour: 50, submittedAt: "25 Aug, 09:10", status: "pending" },
-  { id: "LST-002", ownerName: "Aisha Qureshi", location: "Powai Hiranandani", city: "Mumbai", totalSpots: 8, pricePerHour: 80, submittedAt: "24 Aug, 18:45", status: "pending" },
-  { id: "LST-003", ownerName: "Suresh Pillai", location: "Anna Nagar West", city: "Chennai", totalSpots: 20, pricePerHour: 35, submittedAt: "24 Aug, 11:00", status: "pending" },
-  { id: "LST-004", ownerName: "Priya Nair", location: "Jubilee Hills Rd 36", city: "Hyderabad", totalSpots: 15, pricePerHour: 45, submittedAt: "23 Aug, 14:22", status: "approved" },
-];
 
 const MOCK_DISPUTES: Dispute[] = [
   { id: "DSP-101", driverName: "Arjun Singh", location: "MG Road Metro Multi-Level", amount: 320, reason: "Overcharged by 2 hours — bay sensor glitch", submittedAt: "25 Aug, 11:05", status: "open" },
@@ -298,8 +289,50 @@ type AdminTab = "sessions" | "listings" | "disputes" | "audit";
 
 export default function AdminPortalPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("sessions");
-  const [listings, setListings] = useState<PendingListing[]>(MOCK_LISTINGS);
+  const [listings, setListings] = useState<PendingListing[]>([]);
   const [disputes, setDisputes] = useState<Dispute[]>(MOCK_DISPUTES);
+  const [stats, setStats] = useState({ users: 0, listings: 0, bookings: 0, revenuePaise: 0 });
+  const [serverAuditLogs, setServerAuditLogs] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchAdminData() {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        };
+        const [statsRes, listingsRes, auditRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/admin/stats`, { headers }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/admin/listings/pending`, { headers }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/admin/audit-logs`, { headers })
+        ]);
+        
+        if (statsRes.ok) {
+          setStats(await statsRes.json());
+        }
+        if (listingsRes.ok) {
+          const rawListings = await listingsRes.json();
+          setListings(rawListings.map((l: any) => ({
+            id: l.id,
+            ownerName: l.organization?.name || "Unknown Owner",
+            location: l.title,
+            city: l.address,
+            totalSpots: 0, 
+            pricePerHour: 0,
+            submittedAt: new Date(l.createdAt).toLocaleDateString(),
+            status: l.status,
+          })));
+        }
+        if (auditRes.ok) {
+          setServerAuditLogs(await auditRes.json());
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchAdminData();
+  }, []);
 
   const allSessions = useParkingSessionStore((s) => s.sessions);
   const auditLog = useParkingSessionStore((s) => s.auditLog);
@@ -307,13 +340,36 @@ export default function AdminPortalPage() {
     (s) => s.status === "active" || s.status === "booked"
   );
 
-  const pendingCount = listings.filter((l) => l.status === "pending").length;
+  const pendingCount = listings.filter((l) => l.status === "DRAFT").length;
   const openDisputeCount = disputes.filter((d) => d.status === "open").length;
 
-  const approveListing = (id: string) =>
-    setListings((prev) => prev.map((l) => l.id === id ? { ...l, status: "approved" } : l));
-  const rejectListing = (id: string) =>
-    setListings((prev) => prev.map((l) => l.id === id ? { ...l, status: "rejected" } : l));
+  const approveListing = async (id: string) => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/admin/listings/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ status: 'PUBLISHED' })
+      });
+      setListings((prev) => prev.map((l) => l.id === id ? { ...l, status: "PUBLISHED" } : l));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const rejectListing = async (id: string) => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/admin/listings/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ status: 'DELETED' })
+      });
+      setListings((prev) => prev.map((l) => l.id === id ? { ...l, status: "DELETED" } : l));
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const resolveDispute = (id: string) =>
     setDisputes((prev) => prev.map((d) => d.id === id ? { ...d, status: "resolved" } : d));
   const refundDispute = (id: string) =>
@@ -357,10 +413,10 @@ export default function AdminPortalPage() {
         {/* Stat Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-7">
           {[
-            { icon: <Timer className="w-4 h-4" />, label: "Live Sessions", value: activeSessions.length, color: "text-emerald-400" },
+            { icon: <Timer className="w-4 h-4" />, label: "Users", value: stats.users, color: "text-emerald-400" },
             { icon: <Building2 className="w-4 h-4" />, label: "Pending Approvals", value: pendingCount, color: "text-accent-cyan" },
-            { icon: <AlertTriangle className="w-4 h-4" />, label: "Open Disputes", value: openDisputeCount, color: "text-rose-400" },
-            { icon: <TrendingUp className="w-4 h-4" />, label: "Monthly Gross", value: "₹1.24 L", color: "text-emerald-400", raw: true },
+            { icon: <AlertTriangle className="w-4 h-4" />, label: "Bookings", value: stats.bookings, color: "text-rose-400" },
+            { icon: <TrendingUp className="w-4 h-4" />, label: "Total Gross", value: `₹${(stats.revenuePaise / 100).toFixed(0)}`, color: "text-emerald-400", raw: true },
           ].map((stat) => (
             <GlassCard key={stat.label} tilt className="p-4 flex items-center gap-3.5">
               <div className={`w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center ${stat.color} shadow-[0_0_15px_rgba(255,255,255,0.05)]`}>
@@ -456,13 +512,13 @@ export default function AdminPortalPage() {
                         <div className="flex items-center gap-2 flex-wrap font-mono">
                           <span className="text-xs text-accent-cyan font-bold">{listing.id}</span>
                           <span className={`text-[9px] px-2 py-0.5 rounded-full border ${
-                            listing.status === "pending"
+                            listing.status === "DRAFT"
                               ? "bg-amber-500/15 text-amber-300 border-amber-500/30"
-                              : listing.status === "approved"
+                              : listing.status === "PUBLISHED"
                               ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
                               : "bg-rose-500/15 text-rose-300 border-rose-500/30"
                           }`}>
-                            {listing.status.toUpperCase()}
+                            {listing.status === "DRAFT" ? "PENDING" : listing.status.toUpperCase()}
                           </span>
                         </div>
                         <p className="font-heading font-bold text-base text-white">{listing.location}</p>
@@ -470,7 +526,7 @@ export default function AdminPortalPage() {
                         <p className="text-xs text-slate-400">Host: <span className="text-white font-medium">{listing.ownerName}</span> · Submitted {listing.submittedAt}</p>
                       </div>
 
-                      {listing.status === "pending" && (
+                      {listing.status === "DRAFT" && (
                         <div className="flex gap-2 shrink-0">
                           <NeonButton size="sm" variant="primary" magnetic onClick={() => approveListing(listing.id)}>
                             <CheckCircle2 className="w-3.5 h-3.5" />
@@ -546,9 +602,25 @@ export default function AdminPortalPage() {
                   </span>
                 </div>
                 <div className="space-y-2 font-mono text-xs">
-                  {auditLog.map((entry, i) => (
+                  {serverAuditLogs.map((entry, i) => (
                     <div
                       key={i}
+                      className="flex items-start gap-2.5 p-3 rounded-xl bg-white/5 border border-white/8 text-slate-300"
+                    >
+                      <span className="text-muted shrink-0 text-[10px]">
+                        {new Date(entry.createdAt).toLocaleTimeString("en-IN")}
+                      </span>
+                      <span className="shrink-0 uppercase text-[8px] font-bold px-1.5 py-0.2 rounded bg-emerald-400 text-black">
+                        INFO
+                      </span>
+                      <span className="text-slate-200 leading-relaxed">
+                        {entry.actor?.name || 'Unknown'} performed {entry.action} on {entry.entityType} {entry.entityId}
+                      </span>
+                    </div>
+                  ))}
+                  {auditLog.map((entry, i) => (
+                    <div
+                      key={`local-${i}`}
                       className={`flex items-start gap-2.5 p-3 rounded-xl ${
                         entry.level === "error"
                           ? "bg-rose-500/10 border border-rose-500/25 text-rose-200"

@@ -44,11 +44,14 @@ interface CyberPaymentModalProps {
   currency?: string;
   bookingRef?: string;
   isEVSpot?: boolean;
+  onSuccess?: (totalAmount: number) => Promise<void> | void;
+  onViewPass?: () => void;
 }
 
 export default function CyberPaymentModal({
   isOpen, onClose, basePrice, duration,
   currency = "₹", bookingRef = "BKG-20260822-C07", isEVSpot = true,
+  onSuccess, onViewPass,
 }: CyberPaymentModalProps) {
   const [method, setMethod] = useState<PayMethod>("upi");
   const [evTier, setEvTier] = useState(0);
@@ -86,6 +89,9 @@ export default function CyberPaymentModal({
     for (const step of TX_STEPS) {
       await new Promise<void>((resolve) => setTimeout(resolve, step.duration));
       setTxState(step.state);
+    }
+    if (onSuccess) {
+      await onSuccess(total);
     }
   };
 
@@ -379,7 +385,10 @@ export default function CyberPaymentModal({
                   </div>
 
                   <div className="flex gap-2 w-full">
-                    <NeonButton variant="primary" size="md" fullWidth onClick={handleClose}>
+                    <NeonButton variant="primary" size="md" fullWidth onClick={() => {
+                      if (onViewPass) onViewPass();
+                      else handleClose();
+                    }}>
                       View My Pass
                     </NeonButton>
                     <NeonButton variant="ghost" size="md">

@@ -59,6 +59,7 @@ export default function BookingForm({
   const handleConfirm = () => {
     const plate = licensePlate.trim() || "KA 01 EQ 5678";
     const fid = fastagId.trim() || `FAST-${plate.replace(/\s/g, "").toUpperCase()}`;
+    const finalSlot = selectedSlotLabel || "Auto-Assigned";
 
     // Register session in the store — zone label derived from floorLabel
     const sessionId = createBooking({
@@ -67,7 +68,7 @@ export default function BookingForm({
       vehicleType,
       location: listingName,
       zoneId,
-      zoneLabel: floorLabel,
+      zoneLabel: `${floorLabel} — ${finalSlot}`,
       pricePerHour,
       durationHours: duration > 0 ? duration : 2,
     });
@@ -101,8 +102,12 @@ export default function BookingForm({
             <StatusBadge status="available" dot className="ml-auto" />
           </div>
         ) : (
-          <div className="px-3 py-2.5 rounded-lg bg-surface-glass border border-border text-sm text-muted">
-            Click a slot in the 3D viewer to select
+          <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400/90 text-sm">
+            <span className="animate-pulse flex h-2 w-2 relative mx-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            Auto-Assign (Select from 3D map to override)
           </div>
         )}
       </div>
@@ -234,12 +239,12 @@ export default function BookingForm({
         variant="primary"
         size="lg"
         fullWidth
-        pulse={canBook}
-        disabled={!selectedSlotLabel || duration <= 0}
+        pulse={duration > 0}
+        disabled={duration <= 0}
         onClick={handleConfirm}
         magnetic
       >
-        {selectedSlotLabel ? "Confirm & Get FASTag Pass" : "Select a Zone Slot First"}
+        {selectedSlotLabel ? "Confirm & Get FASTag Pass" : "Auto-Assign Spot & Confirm"}
       </NeonButton>
     </GlassCard>
   );

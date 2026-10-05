@@ -4,6 +4,8 @@ import { useState, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { ArrowLeft, Layers, MapPin, Zap } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import type { FloorData } from "@web/components/3d/ParkingGarage3D";
 import BookingForm from "@web/components/booking/BookingForm";
 import GlassCard from "@web/components/ui/GlassCard";
@@ -29,7 +31,7 @@ function generateMockFloors(): FloorData[] {
   return floorLabels.map((label, fi) => ({
     id: `floor-${fi}`,
     label,
-    slots: Array.from({ length: 10 }, (_, si) => ({
+    slots: Array.from({ length: 50 }, (_, si) => ({
       id: `${label}-${String(si + 1).padStart(2, "0")}`,
       index: si,
       occupied: (fi * 3 + si * 7) % 4 === 0,
@@ -39,17 +41,36 @@ function generateMockFloors(): FloorData[] {
 }
 
 export default function ParkingViewerPage() {
+  const { id } = useParams() as { id: string };
+  const router = useRouter();
   const floors = useMemo(() => generateMockFloors(), []);
   const [activeFloor, setActiveFloor] = useState(1);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [paymentOpen, setPaymentOpen] = useState(false);
   const [bookingDuration, setBookingDuration] = useState(8);
   const { active: currency } = useCurrencyStore();
+  const [listing, setListing] = useState<any>(null);
+
+  useEffect(() => {
+    async function fetchListing() {
+      try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/search/${id}`;
+        const res = await fetch(url);
+        if (res.ok) {
+          const data = await res.json();
+          setListing(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    if (id) fetchListing();
+  }, [id]);
 
   const currentFloor = floors[activeFloor];
   const availableCount = currentFloor.slots.filter((s) => !s.occupied).length;
   const totalCount = currentFloor.slots.length;
-  const baseRateINR = 40;
+  const baseRateINR = listing?.pricePerHour ?? 40;
 
   const selectedSlotData = selectedSlot
     ? currentFloor.slots.find((s) => s.id === selectedSlot)
@@ -76,7 +97,7 @@ export default function ParkingViewerPage() {
             </Link>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="font-heading text-base font-bold text-white">MG Road Metro Multi-Level</h1>
+                <h1 className="font-heading text-base font-bold text-white">{listing?.name || "Loading..."}</h1>
                 {isEVFloor && (
                   <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1 font-bold">
                     <Zap className="w-2.5 h-2.5" />EV Tier 150kW
@@ -85,7 +106,7 @@ export default function ParkingViewerPage() {
               </div>
               <p className="text-xs text-muted flex items-center gap-1 mt-0.5">
                 <MapPin className="w-3 h-3 text-accent-cyan" />
-                Church Street, Off MG Road, Bengaluru
+                {listing?.address || "..."}
               </p>
             </div>
           </div>
@@ -196,7 +217,7 @@ export default function ParkingViewerPage() {
           <BookingForm
             selectedSlotLabel={selectedSlotData?.label ?? null}
             floorLabel={currentFloor.label}
-            listingName="MG Road Metro Multi-Level"
+            listingName={listing?.name || "MG Road Metro Multi-Level"}
             pricePerHour={baseRateINR}
             currency="₹"
             onConfirm={(duration) => {
@@ -214,8 +235,35 @@ export default function ParkingViewerPage() {
         basePrice={baseRateINR}
         duration={bookingDuration}
         currency="₹"
-        bookingRef="BKG-20260825-C07"
+        bookingRef={`BKG-${Date.now().toString().slice(-6)}`}
         isEVSpot={isEVFloor}
+        onSuccess={async (totalAmount) => {
+          try {
+            const startsAt = new Date();
+            const endsAt = new Date(startsAt.getTime() + bookingDuration * 3600000);
+            const token = localStorage.getItem('token');
+
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'}/api/v1/bookings`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {})
+              },
+              body: JSON.stringify({
+                listingId: id,
+                startsAt: startsAt.toISOString(),
+                endsAt: endsAt.toISOString(),
+                amountPaise: totalAmount * 100,
+                currency: "INR"
+              })
+            });
+          } catch (err) {
+            console.error("Booking creation failed", err);
+          }
+        }}
+        onViewPass={() => {
+          router.push('/booking/confirmation');
+        }}
       />
     </div>
   );

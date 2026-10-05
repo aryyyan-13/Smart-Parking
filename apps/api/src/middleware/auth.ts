@@ -71,3 +71,20 @@ export async function authMiddleware(
   req.user = dbUser;
   next();
 }
+
+export function requireAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void {
+  if (!req.user) {
+    res.status(401).json({ error: 'Unauthorized' });
+    return;
+  }
+  const isAdmin = req.user.memberships.some((m) => m.role === 'ADMIN');
+  if (!isAdmin) {
+    res.status(403).json({ error: 'Forbidden: Admin access required' });
+    return;
+  }
+  next();
+}

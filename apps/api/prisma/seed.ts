@@ -208,7 +208,55 @@ async function main() {
     },
   });
 
-  console.log('Database seeded successfully: 2 Organizations, 6 Users, 2 Listings.');
+  // --- DEMO SEED EXTENSION: Pending Listings & Past Bookings ---
+  console.log('Generating bulk demo data...');
+  
+  const demoListingsData = [
+    { title: 'Cyber Hub VIP Parking', city: 'Gurugram', lat: 28.4950, lng: 77.0890, price: 12000, status: ListingStatus.PUBLISHED, type: VehicleType.FOUR_WHEELER },
+    { title: 'MG Road Multi-level', city: 'Bengaluru', lat: 12.9719, lng: 77.6015, price: 8000, status: ListingStatus.DRAFT, type: VehicleType.FOUR_WHEELER },
+    { title: 'Sector 17 Plaza', city: 'Chandigarh', lat: 30.7410, lng: 76.7845, price: 5000, status: ListingStatus.DRAFT, type: VehicleType.TWO_WHEELER },
+    { title: 'Connaught Place Underground', city: 'Delhi', lat: 28.6315, lng: 77.2167, price: 15000, status: ListingStatus.DRAFT, type: VehicleType.FOUR_WHEELER }
+  ];
+
+  for (const item of demoListingsData) {
+    await prisma.listing.create({
+      data: {
+        organizationId: org1.id,
+        title: item.title,
+        address: `100 Demo St, ${item.city}`,
+        latitude: item.lat,
+        longitude: item.lng,
+        status: item.status,
+        vehicleType: item.type,
+        slotLabel: 'D1',
+        priceRules: {
+          create: {
+            organizationId: org1.id,
+            unit: 'HOUR',
+            amount: item.price,
+          },
+        },
+      }
+    });
+  }
+
+  // Generate Past Bookings for Stats
+  for (let i = 0; i < 15; i++) {
+    await prisma.booking.create({
+      data: {
+        organizationId: org1.id,
+        listingId: org1Listing.id,
+        driverId: org1Owner.id,
+        vehicleId: org1Vehicle.id,
+        startsAt: new Date(Date.now() - (i + 1) * 86400000), // Past days
+        endsAt: new Date(Date.now() - (i + 1) * 86400000 + 3600000),
+        amountPaise: 5000,
+        status: 'COMPLETED',
+      },
+    });
+  }
+
+  console.log('Database seeded successfully: 2 Organizations, 6 Users, 6 Listings, 17 Bookings.');
 }
 
 main()
